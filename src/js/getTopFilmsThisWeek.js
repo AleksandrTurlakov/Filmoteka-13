@@ -3,7 +3,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const BASE_URL = `https://api.themoviedb.org/3/trending/`;
 const KEY = `7bfeb33324f72574136d1cd14ae769b5`;
-const MEDIA_TYPE = `movi`;
+const MEDIA_TYPE = `movie`;
 const TIME_WINDOW = `week`;
 
 export async function getTopFilmsThisWeek(page = 1) {
