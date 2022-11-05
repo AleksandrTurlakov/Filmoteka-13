@@ -1,4 +1,4 @@
-import { getTopFilmsThisWeek } from './getTopFilmsThisWeek';
+import { getDataApi } from './getDataApi';
 import card from './templates/card.hbs';
 
 const container = document.querySelector('.container');
@@ -63,9 +63,9 @@ function buildElements(response) {
   });
 }
 
-getTopFilmsThisWeek()
-  .then(response => buildElements(response))
-  .catch(err => console.log(err));
+getDataApi(
+  `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`
+).then(response => buildElements(response));
 
 function createElafterScroll() {
   if (
@@ -75,13 +75,15 @@ function createElafterScroll() {
     addPage();
   }
 }
+
 function addPage() {
   page += 1;
-  getTopFilmsThisWeek(page)
-    .then(res => buildElements(res))
-    .catch(err => console.log(err));
+  getDataApi(
+    `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`
+  ).then(res => buildElements(res));
   if (page === 1000) {
     window.removeEventListener('scroll', createElafterScroll);
   }
 }
+
 window.addEventListener('scroll', createElafterScroll);
