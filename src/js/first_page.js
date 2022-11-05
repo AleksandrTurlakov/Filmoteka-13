@@ -7,37 +7,28 @@ async function topThisDay() {
     return await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`).then(res=>res.json()).then(res=>res.results)
 }
 
-function auditGanres(el){
-  if (el.length < 3) {
-    return el.join(', ')
-  } else {
-    return el.slice(0, 2).join(', ')+', others'
-  }
-}
 function buildElements(response) {
     response.map(item => {
+      function auditGanres(){
+  if (item.genre_ids.length < 3) {
+    return (item.genre_ids.map(elem => genres[elem])).join(', ')
+  }
+    return (item.genre_ids.map(elem => genres[elem])).slice(0, 2).join(', ') + ', others'
+      }
+  function srcAudit(){
+    if (!item.poster_path) {
+        return `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`
+        }
+        return `https://image.tmdb.org/t/p/w500${item.poster_path}`
+      }
+      const genr = auditGanres();
+      const vote = item.vote_average.toFixed(1);
       const name = item.title.toUpperCase();
       const year = item.release_date.slice(0, 4);
-      const genr = item.genre_ids.map(elem => genres[elem])
-      const vote = item.vote_average.toFixed(1);
-
-
-      let src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
-      function srcAudit(src){
-        if (!item.poster_path) {
-            return src=`https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`
-        }
-           return src=`https://image.tmdb.org/t/p/w500${item.poster_path}`
-      }
-      filmList.insertAdjacentHTML('beforeend', `<li class="film-item">
-  <img class="main-image" loading="lazy" src='${srcAudit(src)}' alt="${item.original_title
-        }" /><div class="tex-item">
-  <p class="item-name">${name 
-        }</p><div class="info">
-  <p class="item-genre">${auditGanres(genr)}
-    </p><p class="item-year">${year
-        }<span class="vote">${vote}</span> </p></div></div>
-</li>`)
+      const src = srcAudit();
+      const data = { name, year, genr, vote, src }
+      filmList.insertAdjacentHTML('beforeend', card(data)
+      )
     })
   }
 
@@ -46,7 +37,7 @@ topThisDay().then
     buildElements(response)
 ).catch(err => console.log(err))
 
-function addElafterScroll() {
+function createElafterScroll() {
   if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
     plusPage();
   }
@@ -55,7 +46,7 @@ function plusPage (){
   page +=1;
   topThisDay().then(res => buildElements(res)).catch(err => console.log(err)) 
   if (page === 1000) {
-    window.removeEventListener('scroll', addElafterScroll)
+    window.removeEventListener('scroll', createElafterScroll)
   }
 }
-window.addEventListener('scroll', addElafterScroll)
+window.addEventListener('scroll', createElafterScroll)
