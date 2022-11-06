@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-
-
-=======
 import { getDataApi } from './getDataApi';
 import card from './templates/card.hbs';
->>>>>>> main
 
 const container = document.querySelector('.container');
 const filmList = document.querySelector('.film-list');
