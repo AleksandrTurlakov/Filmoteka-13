@@ -1,8 +1,10 @@
-import { getDataApi } from './getDataApi';
+import { getDataApi, getFilmSearch, getMovieDetails, getGenres, getTrailerKey } from './getDataApi.js';
 import card from './templates/card.hbs';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const container = document.querySelector('.container');
 const filmList = document.querySelector('.film-list');
+
 let page = 1;
 const genres = {
   28: 'Action',
@@ -63,9 +65,84 @@ function buildElements(response) {
   });
 }
 
-getDataApi(
-  `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`
-).then(response => buildElements(response));
+getDataApi(page).then(response => buildElements(response));
+
+
+// поиск
+const searchFormEl = document.querySelector('.search__form');
+searchFormEl.addEventListener('submit', onSubmit);
+let name = '';
+
+export const msgOptions = {
+    position: 'center-top',
+    distance: '150px',
+    timeout: 3000,
+    clickToClose: true
+} 
+
+function onSubmit(evt) {
+  evt.preventDefault()
+  const form = evt.currentTarget;
+  console.log('form', form);
+  console.dir('form dir', form);
+  const searchName = form.elements.filmName.value;
+   
+  const inputFilmName = searchName.toLowerCase().trim().split(' ').join('+')
+  console.log('inputFilmName', inputFilmName)
+  if (inputFilmName.length === 0 || inputFilmName === name )  {
+  Notify.failure('Same query', msgOptions)
+   return
+  }
+  name = inputFilmName
+
+  getFilmSearch(name).then(data => {
+    console.log('data.resultsSearch', data.resultsSearch)
+    const moviesData = data.resultsSearch 
+
+    if (moviesData.length === 0) {
+    Notify.failure('Search result not successful. Enter the correct movie name', msgOptions)
+} else {
+    Notify.success(`We found ${data.totalItems} movies`, msgOptions)
+    transformData(moviesData);
+    transformGenres(moviesData);   
+    }
+
+  } ).finally(() => form.reset())
+}
+
+function transformData(filmsData) {
+  filmsData.map(item => {
+    if (item.release_date) {
+      item.release_date = item.release_date.slice(0, 4);
+    }
+
+    return item;
+  });
+}
+
+function transformGenres(filmsData) {
+  filmsData.map(item => {
+    let newGenre = [];
+
+    if (item.genre_ids) {
+      item.genre_ids.forEach(id => {
+        const found = genres.find(item => item.id === id);
+        newGenre.push(found.name);
+      });
+    }
+
+    if (newGenre.length >= 4) {
+      const manyGenres = newGenre.slice(0, 3);
+      item.genres = manyGenres.join(', ');
+    } else {
+      item.genres = newGenre.join(', ');
+    }
+
+    return item;
+  });
+}
+
+
 
 function createElafterScroll() {
   if (
