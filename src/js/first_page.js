@@ -1,3 +1,6 @@
+
+
+
 const container = document.querySelector('.container');
 import card from './templates/card.hbs'
 const filmList=document.querySelector('.film-list')
