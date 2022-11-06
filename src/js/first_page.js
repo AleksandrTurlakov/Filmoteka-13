@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+-<<<<<<< HEAD
 
-
+   
 =======
 import { getDataApi } from './getDataApi';
 import card from './templates/card.hbs';
