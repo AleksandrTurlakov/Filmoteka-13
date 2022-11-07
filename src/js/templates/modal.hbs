@@ -1,69 +1,63 @@
 
 {{#each this}}
-<!-- Элементы для вызова модальных окон, могут быть любые -->
-
-<a href="#" class="js-open-modal" data-modal="1">Открыть окно 1</a>
-
-
-<!-- Модальное окно -->
-
-<div class="modal" data-modal="1">
-  <!--   Svg иконка для закрытия окна  -->
-  <svg class="modal__cross js-modal-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path
-      d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" />
-  </svg>
-  <p class="modal__title">Заголовок окна 1</p>
-
-
-<!-- Модалка с фильмом ДЗ - JS -->
-{{!-- {{#each this}}
 <div class="modal">
-
+  <button class="button-close" data-modal-close>
+    <svg class="button-close__icon" width="30" height="30">
+      <use href="./images/symbol-defs.svg#icon-close"></use>
+    </svg>
+  </button>
   <div class="modal__poster">
-    <img class='modal__image' src='{{src}}' alt='{{name}}' />
+
+    <picture>
+
+      <source srcset="./images/portfolio/poster_1024.jpg 1x" media="(min-width: 1200px)">
+      <source srcset="./images/portfolio/poster_768.jpg 1x" media="(min-width: 768px)">
+      <source srcset="./images/portfolio/poster_320.jpg 1x" media="(min-width: 320px)">
+
+      <img class="modal__image" src="./images/portfolio/poster_320.jpg" alt="" width="450">
+    </picture>
+
   </div>
 
   <div class="modal__filmBox">
-    <h2>{{name}}</h2>
+    <h2 class="modal__name">{{name}}</h2>
 
-    <table>
+    <table class="modal__table">
       <tr>
-        <td>Vote / votes</td>
-        <td><span class='vote'>{{vote}}</span> / <span class='vote__total'>1260</span></td>
+        <td class="modal__title">Vote / votes</td>
+        <td><span class='vote'>7.3</span> / <span class='vote__total'>1260</span></td>
       </tr>
       <tr>
-        <td>Popularity</td>
-        <td>{{name}}</td>
+        <td class="modal__title">Popularity</td>
+        <td>100.2</td>
       </tr>
       <tr>
-        <td>Original Title</td>
-        <td>{{name}}</td>
+        <td class="modal__title">Original Title</td>
+        <td>A Fistful of lead</td>
       </tr>
       <tr>
-        <td>Genre</td>
-        <td>{{genr}}</td>
+        <td class="modal__title">Genre</td>
+        <td>Western</td>
       </tr>
     </table>
 
     <h3>About</h3>
-    <p class="modal__description">'{{description}}'</p>
+    <p class="modal__description">
+      Four of the West’s most infamous outlaws assemble to steal a huge stash of gold from the most corrupt settlement
+      of the
+      gold rush towns. But not all goes to plan one is killed and the other three escapes with bags of gold hide out in
+      the
+      abandoned gold mine where they happen across another gang of three – who themselves were planning to hit the very
+      same
+      bank! As tensions rise, things go from bad to worse as they realise the bags of gold are filled with lead...
+      they’ve
+      been double crossed – but by who and how?
+    </p>
 
     <div class="modal__buttons">
-      <button class="watched">Add to watched</button>
-      <button class="queue">Add to queue</button>
+      <button class="modal__watchedButton">Add to watched</button>
+      <button class="modal__queueButton">Add to queue</button>
     </div>
-
   </div>
-  <div>
-    {{/each}} --}}
-<!-- Модалка с фильмом ДЗ - JS -->
-
-  
 </div>
-
-
-<!-- Подложка под модальным окном -->
-<div class="overlay js-overlay-modal"></div>
-
 {{/each}}
