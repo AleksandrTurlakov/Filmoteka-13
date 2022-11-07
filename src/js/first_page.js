@@ -1,9 +1,15 @@
 import { getDataApi } from './getDataApi';
 import card from './templates/card.hbs';
-
+const filter = document.querySelector('.filter');
 const container = document.querySelector('.container');
 const filmList = document.querySelector('.film-list');
+let URL = '';
 let page = 1;
+const URL_TO_WEEK = `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=`;
+const URL_TO_DAY = `https://api.themoviedb.org/3/trending/movie/day?api_key=7bfeb33324f72574136d1cd14ae769b5&page=`;
+const URL_TO_TOP = `https://api.themoviedb.org/3/movie/top_rated?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&page=`;
+const URL_TO_NEW = `https://api.themoviedb.org/3/movie/now_playing?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&page=`;
+URL = URL_TO_WEEK;
 const genres = {
   28: 'Action',
   12: 'Adventure',
@@ -33,57 +39,89 @@ const genres = {
 //     .then(res => res.json())
 //     .then(res => res.results);
 // }
+function mainPage(URL, page) {
+  function buildElements(response) {
+    response.map(item => {
+      function auditGanres() {
+        if (item.genre_ids.length < 3) {
+          return item.genre_ids.map(elem => genres[elem]).join(', ');
+        }
+        return (
+          item.genre_ids
+            .map(elem => genres[elem])
+            .slice(0, 2)
+            .join(', ') + ', others'
+        );
+      }
+      function srcAudit() {
+        if (!item.poster_path) {
+          return `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`;
+        }
+        return `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+      }
+      const genr = auditGanres();
+      const vote = item.vote_average.toFixed(1);
+      const name = item.title.toUpperCase();
+      const year = item.release_date.slice(0, 4);
+      const src = srcAudit();
+      const data = { name, year, genr, vote, src };
+      filmList.insertAdjacentHTML('beforeend', card(data));
+    });
+  }
+  getDataApi(URL + page).then(response => buildElements(response));
+  function addPage() {
+    page += 1;
+    getDataApi(URL + page).then(res => buildElements(res));
+    if (page === 1000) {
+      window.removeEventListener('scroll', createElafterScroll);
+    }
+  }
 
-function buildElements(response) {
-  response.map(item => {
-    function auditGanres() {
-      if (item.genre_ids.length < 3) {
-        return item.genre_ids.map(elem => genres[elem]).join(', ');
-      }
-      return (
-        item.genre_ids
-          .map(elem => genres[elem])
-          .slice(0, 2)
-          .join(', ') + ', others'
-      );
+  function createElafterScroll() {
+    if (
+      window.scrollY + window.innerHeight >=
+      document.documentElement.scrollHeight
+    ) {
+      addPage();
     }
-    function srcAudit() {
-      if (!item.poster_path) {
-        return `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`;
-      }
-      return `https://image.tmdb.org/t/p/w500${item.poster_path}`;
-    }
-    const genr = auditGanres();
-    const vote = item.vote_average.toFixed(1);
-    const name = item.title.toUpperCase();
-    const year = item.release_date.slice(0, 4);
-    const src = srcAudit();
-    const data = { name, year, genr, vote, src };
-    filmList.insertAdjacentHTML('beforeend', card(data));
-  });
+  }
+  window.addEventListener('scroll', createElafterScroll);
 }
 
-getDataApi(
-  `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`
-).then(response => buildElements(response));
+function onButtonChange(event) {
+  switch (event.target.value) {
+    case 'top_for_week':
+      URL = '';
+      filmList.innerHTML = '';
+      URL = '';
+      URL = URL_TO_WEEK;
+      mainPage(URL, page);
+      break;
 
-function createElafterScroll() {
-  if (
-    window.scrollY + window.innerHeight >=
-    document.documentElement.scrollHeight
-  ) {
-    addPage();
+    case 'top_for_day':
+      filmList.innerHTML = '';
+      URL = '';
+      URL = URL_TO_DAY;
+
+      mainPage(URL, page);
+      break;
+
+    case 'top_rated':
+      URL = '';
+      filmList.innerHTML = '';
+      URL = URL_TO_TOP + page;
+      mainPage(URL, page);
+
+      break;
+    case 'new_films':
+      URL = '';
+      filmList.innerHTML = '';
+      URL = URL_TO_NEW + page;
+      mainPage(URL, page);
+
+      break;
   }
 }
 
-function addPage() {
-  page += 1;
-  getDataApi(
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`
-  ).then(res => buildElements(res));
-  if (page === 1000) {
-    window.removeEventListener('scroll', createElafterScroll);
-  }
-}
-
-window.addEventListener('scroll', createElafterScroll);
+filter.addEventListener('change', onButtonChange);
+mainPage(URL, page);
