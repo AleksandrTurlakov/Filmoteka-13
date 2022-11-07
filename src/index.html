@@ -14,9 +14,35 @@
     <title>Filmoteka</title>
   </head>
   <body>
+    <header class="header">
+      <nav class="nav">
+        <a class="logo" href="./index.html">Filmoteka
+          <svg width="24px" height="24px">
+            <use href="./img/film.svg" class="logo-icon"></use>
+          </svg>
+        </a>
+        <ul class="nav-list">
+          <li><a class="link-nav" href="./index.html" >Home</a></li>
+          <li><a class="link-nav" href="./myLibrary.html">My library</a></li>
+        </ul>
+      </nav>
+      <form >
+        <label>
+          <input class="search-film-imput" type="text" placeholder="Movie search" name="search-film"> 
+        </label>
+        <button class="search-film">
+          <svg width="12px" height="12px">
+            <use href="./img/search.svg" class="logo-icon"></use>
+          </svg>
+        </button>
+      </form>
+    </header>
     <include src="./partials/header.html"></include>
     <include src="./partials/main.html"></include>
     <include src="./partials/footer.html"></include>
     <script src="index.js" type="module"></script>
+    <footer class="footer">
+      
+    </footer>
   </body>
 </html>
