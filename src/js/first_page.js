@@ -45,65 +45,7 @@ function addPage() {
   }
 }
 
-
-function onButtonChange(event){
-  page = 1;
-  switch (event.target.value) {
-
-    case "top_for_week":
-      filmList.innerHTML = '';
-      URL = URL_TO_WEEK;
-      mainPage(URL, page);
-    break;
-
-    case "top_for_day":
-      filmList.innerHTML = '';
-      URL = URL_TO_DAY;
-      mainPage(URL, page);
-    break;
-
-    case "top_rated":
-      filmList.innerHTML = '';
-      URL = URL_TO_TOP 
-      mainPage(URL, page);
-      break;
-    
-    case "new_films":
-      filmList.innerHTML = '';
-      URL = URL_TO_NEW 
-      mainPage(URL, page);
-      break;
-}
-}
-
-filter.addEventListener('change', onButtonChange)
-mainPage(URL, page);
-
-function mainPage(URL,page) {
-getDataApi(
-  URL+page
-).then(response => buildElements(response));
-
-}
-function addPage() {
-  page += 1;
-  getDataApi(
-   URL+page
-  ).then(res => buildElements(res));
-  if (page === 1000) {
-    window.removeEventListener('scroll', createElafterScroll);
-  }
-}
-
-function createElafterScroll() {
-  if (
-    window.scrollY + window.innerHeight >=
-    document.documentElement.scrollHeight
-  ) {
-    addPage();
-  }
-}
-  function buildElements(response) {
+function buildElements(response) {
   response.map(item => {
     function auditGanres() {
       if (item.genre_ids.length < 3) {
@@ -122,17 +64,15 @@ function createElafterScroll() {
       }
       return `https://image.tmdb.org/t/p/w500${item.poster_path}`;
     }
-    const id = item.id;
     const genr = auditGanres();
     const vote = item.vote_average.toFixed(1);
     const name = item.title.toUpperCase();
     const year = item.release_date.slice(0, 4);
     const src = srcAudit();
-    const data = { name, year, genr, vote, src, id };
+    const data = { name, year, genr, vote, src };
     filmList.insertAdjacentHTML('beforeend', card(data));
   });
 }
-
 
 function createElafterScroll() {
   if (
@@ -175,4 +115,3 @@ function onButtonChange(event) {
 
 filter.addEventListener('change', onButtonChange);
 mainPage(URL, page);
-

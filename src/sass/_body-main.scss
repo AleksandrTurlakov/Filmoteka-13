@@ -70,15 +70,18 @@
   color: #000000;
 }
 .film-list {
-  display: flex;
+  margin: 0;
+  display: grid;
   row-gap: 20px;
-  flex-wrap: wrap;
+  justify-content: space-around;
   @include tablet {
     gap: 32px;
+    grid-template-columns: 336 336;
   }
   @include desktop {
     gap: 16px;
     row-gap: 32px;
+    grid-template-columns: 394 394 394;
   }
 }
 .vote {
