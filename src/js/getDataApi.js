@@ -1,17 +1,17 @@
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const BASE_URL = `https://api.themoviedb.org/3`;
-const KEY = `4556eff0e1693d6c81c92e5f5a201c65`;
-const MEDIA_TYPE = `movie`;
-const TIME_WINDOW = `week`;
+// const BASE_URL = `https://api.themoviedb.org/3/trending/`;
+// const KEY = `7bfeb33324f72574136d1cd14ae769b5`;
+// const MEDIA_TYPE = `movie`;
+// const TIME_WINDOW = `week`;
 
-// Получение трендовых фильмов - главная страница
-export async function getDataApi(page) {
+export async function getDataApi(requestURL) {
   try {
     const response = await axios
-      .get(       
-        `${BASE_URL}/trending/${MEDIA_TYPE}/${TIME_WINDOW}?api_key=${KEY}&page=${page}`
+      .get(
+        requestURL
+        // `${BASE_URL}${MEDIA_TYPE}/${TIME_WINDOW}?api_key=${KEY}&page=${page}`
       )
       .then(res => res.data);
     return response.results;
@@ -20,4 +20,3 @@ export async function getDataApi(page) {
     console.log(error);
   }
 }
-
