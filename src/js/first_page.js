@@ -1,8 +1,10 @@
-import { getDataApi } from './getDataApi';
+import { getDataApi } from './getDataApi.js';
 import card from './templates/card.hbs';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const container = document.querySelector('.container');
 const filmList = document.querySelector('.film-list');
+
 let page = 1;
 const genres = {
   28: 'Action',
@@ -34,7 +36,7 @@ const genres = {
 //     .then(res => res.results);
 // }
 
-function buildElements(response) {
+export function buildElements(response) {
   response.map(item => {
     function auditGanres() {
       if (item.genre_ids.length < 3) {
@@ -63,9 +65,7 @@ function buildElements(response) {
   });
 }
 
-getDataApi(
-  `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`
-).then(response => buildElements(response));
+getDataApi(page).then(response => buildElements(response));
 
 function createElafterScroll() {
   if (
