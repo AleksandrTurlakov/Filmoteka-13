@@ -3,8 +3,8 @@ const testmovie = {
 } // Это тестовый обьект фильма, потом уберу//
  
  document.addEventListener('DOMContentLoaded', function(){
-    const QUEUE_SELECTOR = document.querySelector('.action-queue'); // Класы кнопок тут поменяю как будет модалка готова//
-    const WATCHED_SELECTOR = document.querySelector('.action-watched');
+    const QUEUE_SELECTOR = document.querySelector('.modal__queueButton'); 
+    const WATCHED_SELECTOR = document.querySelector('.modal__watchedButton');
     
    [QUEUE_SELECTOR, WATCHED_SELECTOR].map((actionButton) => {
 
