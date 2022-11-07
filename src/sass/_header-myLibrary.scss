@@ -6,10 +6,15 @@
   color: #ffffff;
   font-weight: 500;
   &__background {
-    background: url('../img/header/background.png') no-repeat center;
+    background: url('../img/header/background@1x.png') no-repeat center;
     width: 100%;
     background-size: cover;
     max-height: 216px;
+
+    @media (-webkit-min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi) {
+        background: url('../img/header/background@2x.png') no-repeat center;
+      }
   }
 
   &__links {
@@ -42,7 +47,7 @@
     & li {
       list-style: none;
 
-      &:hover {
+      &:nth-child(2) {
         &::after {
           content: ' ';
           background-color: #ff001b;
