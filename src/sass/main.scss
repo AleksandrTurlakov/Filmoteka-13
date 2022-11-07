@@ -1,6 +1,9 @@
-@import './common.scss';
-@import './container.scss';
-@import './mixins.scss';
+
+@import './common';
+@import './container';
+@import './mixins';
 @import './body-main';
+@import './header-myLibrary';
+@import './modal';
 @import './loader';
 @import './scrollBtn';
