@@ -12,22 +12,27 @@
     transform: translate(-50%, -50%) scale(1);
     background-color: #FFFFFF;
     size: 12px;
-    line-height: 1.66;
+    line-height: 1.33;
     text-align: left;
     padding: 48px 20px 40px 20px;
     font-weight: 500;
     letter-spacing: normal;
 
 
-    @media screen and (min-width:1200px) {
-        max-width: 806px;
-        height: 558px;
-    }
+
 
     @media screen and (min-width:768px) {
         display: flex;
         max-width: 704px;
         height: 552px;
+        padding: 40px 72px 40px 36px;
+    
+    }
+
+    @media screen and (min-width:1200px) {
+        max-width: 806px;
+         height: 558px;
+        padding: 40px 12px 40px 12px;
     }
 
     &__filmBox {
@@ -45,11 +50,31 @@
     &__poster {
         height: 357px;
         width: 240px;
-        margin-bottom: 20px;
+
+        @media screen and (min-width:768px) {
+                height: 373px;
+                width: 264px;
+                margin-right: 68px;
+            }
+
+        @media screen and (min-width:1200px) {
+                height: 475px;
+                width: 375px;
+                margin-right: 16px;
+            }
+    
+
     }
 
     &__name {
         text-transform: uppercase;
+        font-size: 20px; 
+        line-height: 1.15;
+        margin-top: 20px;
+
+        @media screen and (min-width:768px) {
+               margin-top: 0px;
+        }
     }
 
     &__table {
@@ -69,17 +94,40 @@
         text-align: center;
         width: 36px;
         display: inline-block;
+        line-height: 1.16;
+    }
+
+
+    &__total  {
+        line-height: 1.16;
     }
 
     &__nameOriginal {
         text-transform: uppercase;
     }
 
+    &__description {
+    
+        @media screen and (min-width:768px) {
+        padding-bottom: 8px;
+    }
 
+        margin-bottom: 20px;
+        line-height: 1.66;
+    }
+
+&__h3 {
+margin-bottom: 8px;
+  
+}
 
     &__buttons {
         justify-content: space-between;
-        margin-top: 20px;
+
+        @media screen and (min-width:1200px) {
+        justify-content: left;
+  
+        }
     }
 
     &__watchedButton {
@@ -90,7 +138,17 @@
         width: 110px;
         height: 44px;
         text-transform: uppercase;
+
+        @media screen and (min-width:768px) {
+        width: 125px;
+        height: 44px;
+        }
+   @media screen and (min-width:768px) {
+                          margin-left: 8px;
+                          margin-right: 15px;
+                            
     }
+          }
 
     &__queueButton {
         border-radius: 5px;
@@ -98,6 +156,8 @@
         width: 110px;
         height: 44px;
         text-transform: uppercase;
+        background-color: #fff;
+        font-weight: 500;
 
     }
 
@@ -124,8 +184,6 @@
 
        &__icon {
            fill: #000000;
-           border: 1px solid rgba(0, 0, 0, 0.1);
-           border-radius: 50%;
        }
 
        &:hover &__icon {
