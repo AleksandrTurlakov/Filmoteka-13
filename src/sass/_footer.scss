@@ -1,12 +1,30 @@
-.text-footer{
+.text__footer{
     padding: 30px 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     text-align: center;
-    flex-wrap: wrap;
+    color: #545454;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.14;
+}
+.text__footer--pre__icon{
+    margin-bottom: 9px;
 }
 
-.container-footer{
+.text__footer--by__icon{
+        display: flex;
+}
+
+.text__footer {
+    @media screen and(min-width: 480px) {
+        font-size: 16px;
+        line-height: 1.19;
+    }
+}
+
+.container__footer{
     background-color: #F7F7F7;
 }
 
@@ -16,6 +34,10 @@
     margin: 0 10px;
 }
 
-.text-margin{
+.text__margin{
     margin-right: 4px;
 }
+
+
+
+
