@@ -2,7 +2,7 @@
   color: #ffffff;
   font-weight: 500;
   &__background {
-    background: url('../img/header/lib_mob_1x-min.jpg') no-repeat center;
+    background: url('../img/header/lib_mob_1x-min.jpg') no-repeat git;
     width: 100%;
     background-size: cover;
     max-height: 216px;
@@ -37,12 +37,13 @@
 
   &__logo {
     font-size: 30px;
-    line-height: 35px;
+    line-height: 35.16px;
     text-transform: capitalize;
     text-decoration-line: none;
     & img {
       display: inline-block;
       padding-right: 10px;
+      
     }
   }
   &__menu {
@@ -60,7 +61,7 @@
       list-style: none;
 
       &:nth-child(1) {
-        padding-right: 40px;
+        padding-right: 39px;
       }
 
       & a {
@@ -72,14 +73,25 @@
   &__buttons {
     margin: 0 auto;
     padding: 39px 0 60px;
-    width: 310px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include start {
+      width: 279px;
+    }
+
+    @include tablet {
+      width: 336px;
+    }
+
+    @include desktop {
+      width: 311px;
+    }
+
   }
 
   &__btn {
-    width: 148px;
     height: 42px;
     font-size: 12px;
     line-height: 16px;
@@ -91,8 +103,16 @@
     background-color: transparent;
     border: solid 1px #ffffff;
 
-    @media screen and(min-width: 480px) {
+    @include start {
       width: 129.53px;
+    }
+
+    @include tablet {
+      width: 152px;
+    }
+
+    @include desktop {
+      width: 148px;
     }
 
     &:hover {
@@ -103,11 +123,11 @@
 }
 
 .logo-name {
-  @media screen and(min-width: 320px) {
+  @include start {
     display: none;
   }
 
-  @media screen and(min-width: 480px) {
+  @include mobile {
     display: block;
   }
 }
