@@ -1,65 +1,76 @@
-
-
-<button data-modal-open class="button" type="button">Заказать услугу</button>
+<button data-modal-open class="button" type="button">Открыть модалку</button>
 <div class="backdrop is-hidden" data-modal>
-<div class="modal">
+  <div class="modal">
     <button class="button-close" data-modal-close>
-        <svg class="button-close__icon" width="30" height="30">
-            <use href="./images/symbol-defs.svg#icon-close"></use>
-        </svg>
+      <svg class="button-close__icon" width="30" height="30">
+        <use href="./images/symbol-defs.svg#icon-close"></use>
+      </svg>
     </button>
     <div class="modal__poster">
+      <picture>
+        <source
+          srcset="./images/poster_1024.jpg 1x"
+          media="(min-width: 1200px)"
+        />
+        <source
+          srcset="./images/poster_768.jpg 1x"
+          media="(min-width: 768px)"
+        />
+        <source
+          srcset="./images/poster_320.jpg 1x"
+          media="(min-width: 320px)"
+        />
 
-        <picture>
-
-            <source srcset="./images/poster_1024.jpg 1x" media="(min-width: 1200px)">
-            <source srcset="./images/poster_768.jpg 1x" media="(min-width: 768px)">
-            <source srcset="./images/poster_320.jpg 1x" media="(min-width: 320px)">
-
-            <img class="modal__image" src="./images/poster_320.jpg" alt="" width="450">
-        </picture>
-
+        <img
+          class="modal__image"
+          src="./images/poster_320.jpg"
+          alt=""
+          width="450"
+        />
+      </picture>
     </div>
 
     <div class="modal__filmBox">
-        <h2 class="modal__name">A FISTFUL OF LEAD</h2>
+      <h2 class="modal__name">A FISTFUL OF LEAD</h2>
 
-        <table class="modal__table">
-            <tr>
-                <td class="modal__title">Vote / votes</td>
-                <td><span class='modal__vote'>7.3</span> / <span class='vote__total'>1260</span></td>
-            </tr>
-            <tr>
-                <td class="modal__title">Popularity</td>
-                <td>100.2</td>
-            </tr>
-            <tr>
-                <td class="modal__title">Original Title</td>
-                <td class="modal__nameOriginal">A Fistful of lead</td>
-            </tr>
-            <tr>
-                <td class="modal__title">Genre</td>
-                <td>Western</td>
-            </tr>
-        </table>
+      <table class="modal__table">
+        <tr>
+          <td class="modal__title">Vote / votes</td>
+          <td>
+            <span class="modal__vote">7.3</span> /
+            <span class="modal__total">1260</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="modal__title">Popularity</td>
+          <td>100.2</td>
+        </tr>
+        <tr>
+          <td class="modal__title">Original Title</td>
+          <td class="modal__nameOriginal">A Fistful of lead</td>
+        </tr>
+        <tr>
+          <td class="modal__title">Genre</td>
+          <td>Western</td>
+        </tr>
+      </table>
 
-        <h3>About</h3>
-        <p class="modal__description">
-            Four of the West’s most infamous outlaws assemble to steal a huge stash of gold from the most corrupt
-            settlement of the
-            gold rush towns. But not all goes to plan one is killed and the other three escapes with bags of gold hide
-            out in the
-            abandoned gold mine where they happen across another gang of three – who themselves were planning to hit the
-            very same
-            bank! As tensions rise, things go from bad to worse as they realise the bags of gold are filled with lead...
-            they’ve
-            been double crossed – but by who and how?
-        </p>
+      <h3 class="modal__h3">About</h3>
+      <p class="modal__description">
+        Four of the West’s most infamous outlaws assemble to steal a huge stash
+        of gold from the most corrupt settlement of the gold rush towns. But not
+        all goes to plan one is killed and the other three escapes with bags of
+        gold hide out in the abandoned gold mine where they happen across
+        another gang of three – who themselves were planning to hit the very
+        same bank! As tensions rise, things go from bad to worse as they bags of
+        gold are filled with lead... they’ve been double crossed – but by who
+        and how?
+      </p>
 
-        <div class="modal__buttons">
-            <button class="modal__watchedButton">Add to watched</button>
-            <button class="modal__queueButton">Add to queue</button>
-        </div>
+      <div class="modal__buttons">
+        <button class="modal__watchedButton">Add to watched</button>
+        <button class="modal__queueButton">Add to queue</button>
+      </div>
     </div>
-</div>
+  </div>
 </div>
