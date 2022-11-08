@@ -1,14 +1,15 @@
--<<<<<<< HEAD
-
-   
-=======
 import { getDataApi } from './getDataApi';
 import card from './templates/card.hbs';
->>>>>>> main
-
+const filter = document.querySelector('.filter');
 const container = document.querySelector('.container');
 const filmList = document.querySelector('.film-list');
+let URL = '';
 let page = 1;
+const URL_TO_WEEK = `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=`;
+const URL_TO_DAY = `https://api.themoviedb.org/3/trending/movie/day?api_key=7bfeb33324f72574136d1cd14ae769b5&page=`;
+const URL_TO_TOP = `https://api.themoviedb.org/3/movie/top_rated?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&page=`;
+const URL_TO_NEW = `https://api.themoviedb.org/3/movie/now_playing?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&page=`;
+URL = URL_TO_WEEK;
 const genres = {
   28: 'Action',
   12: 'Adventure',
@@ -31,13 +32,18 @@ const genres = {
   37: 'Western',
 };
 
-// async function topThisDay() {
-//   return await fetch(
-//     `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`
-//   )
-//     .then(res => res.json())
-//     .then(res => res.results);
-// }
+function mainPage(URL, page) {
+  getDataApi(URL + page).then(response => buildElements(response));
+  window.addEventListener('scroll', createElafterScroll);
+}
+
+function addPage() {
+  page += 1;
+  getDataApi(URL + page).then(res => buildElements(res));
+  if (page === 1000) {
+    window.removeEventListener('scroll', createElafterScroll);
+  }
+}
 
 function buildElements(response) {
   response.map(item => {
@@ -68,10 +74,6 @@ function buildElements(response) {
   });
 }
 
-getDataApi(
-  `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`
-).then(response => buildElements(response));
-
 function createElafterScroll() {
   if (
     window.scrollY + window.innerHeight >=
@@ -81,14 +83,35 @@ function createElafterScroll() {
   }
 }
 
-function addPage() {
-  page += 1;
-  getDataApi(
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=${page}`
-  ).then(res => buildElements(res));
-  if (page === 1000) {
-    window.removeEventListener('scroll', createElafterScroll);
+function onButtonChange(event) {
+  page = 1;
+  switch (event.target.value) {
+    case 'top_for_week':
+      filmList.innerHTML = '';
+      URL = URL_TO_WEEK;
+      mainPage(URL, page);
+      break;
+
+    case 'top_for_day':
+      filmList.innerHTML = '';
+      URL = URL_TO_DAY;
+      mainPage(URL, page);
+      break;
+
+    case 'top_rated':
+      URL = '';
+      filmList.innerHTML = '';
+      URL = URL_TO_TOP;
+      mainPage(URL, page);
+      break;
+    case 'new_films':
+      URL = '';
+      filmList.innerHTML = '';
+      URL = URL_TO_NEW;
+      mainPage(URL, page);
+      break;
   }
 }
 
-window.addEventListener('scroll', createElafterScroll);
+filter.addEventListener('change', onButtonChange);
+mainPage(URL, page);
