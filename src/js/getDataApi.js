@@ -11,10 +11,11 @@ export async function getDataApi(requestURL) {
     const response = await axios
       .get(
         requestURL
+ 
         // `${BASE_URL}${MEDIA_TYPE}/${TIME_WINDOW}?api_key=${KEY}&page=${page}`
       )
       .then(res => res.data);
-    return response.results;
+    return response;
   } catch (error) {
     Notify.failure('Something went wrong! Try again');
     console.log(error);

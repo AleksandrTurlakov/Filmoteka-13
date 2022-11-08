@@ -70,15 +70,18 @@
   color: #000000;
 }
 .film-list {
-  display: flex;
+  margin: 0;
+  display: grid;
   row-gap: 20px;
-  flex-wrap: wrap;
+  justify-content: space-around;
   @include tablet {
     gap: 32px;
+    grid-template-columns: 336 336;
   }
   @include desktop {
     gap: 15px;
     row-gap: 32px;
+    grid-template-columns: 395 395 395;
   }
 }
 .vote {
@@ -98,7 +101,7 @@
   }
 }
 
-// @import '~pretty-checkbox/src/pretty-checkbox.scss';
+@import '~pretty-checkbox/src/pretty-checkbox.scss';
 
 .filter {
   width: 280px;
@@ -134,7 +137,7 @@
   @include font(500, 16px, 1.33, null);
   color: #ff6b08;
   @include desktop {
-    @include font(500, 25px, 1.33, null);
+    @include font(500, 26px, 1.33, null);
   }
 }
 .filter-input:checked + .state {
@@ -146,3 +149,6 @@
 div.pretty:hover {
   color: #ff6b08;
 }
+// .main-page {
+//   min-width: 200px;
+// }

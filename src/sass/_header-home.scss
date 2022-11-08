@@ -1,57 +1,75 @@
 .header {
-    color: #ffffff;
-    font-weight: 500;
+  color: #ffffff;
+  font-weight: 500;
 }
 
 .header__home__background {
-    background-image:
-    linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-     url('../img/header/home-background.jpg');
-    opacity: 0.9;
-    width: 100%;
-    background-size: cover;
-    max-height: 216px;
-} 
+  opacity: 0.9;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url('../img/header/mob_1x-min.jpg');
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background: url('../img/header/mob_2x-min.jpg') no-repeat center;
+  }
 
-.search{
-    padding-top: 40px;
-    padding-bottom: 80px;
-}
-
-.border{
-    width: 394px;
-    border-bottom: 1px solid #FFFFFF;
-    margin: 0 auto;
-}
-
-.search__form{
-    display: flex;
-    justify-content: center;
-}
-
-
-.search__input{
-    background-color: transparent;
-    border: none;
-   
-    width: 375px;
-    &::placeholder {
-        color: #FFFFFF;
+  @include tablet {
+    background: url('../img/header/tablet_1x-min.jpg') no-repeat center;
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background: url('../img/header/tablet_2x-min.jpg') no-repeat center;
     }
+  }
+  @include desktop {
+    background: url('../img/header/desctop_qx-min.jpg') no-repeat center;
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background: url('../img/header/desctop_2x-min.jpg') no-repeat center;
+    }
+  }
 }
 
-.search__input:focus{
+.search {
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+
+.border {
+  width: 394px;
+  border-bottom: 1px solid #ffffff;
+  margin: 0 auto;
+}
+
+.search__form {
+  display: flex;
+  justify-content: center;
+}
+
+.search__input {
+  background-color: transparent;
+  border: none;
+
+  width: 375px;
+  &::placeholder {
     color: #ffffff;
+  }
 }
 
-.search__btn{
-    background-color: transparent;
-    border: none;
+.search__input:focus {
+  color: #ffffff;
 }
 
-.icon-search{
-    width: 12px;
-    height: 12px;
+.search__btn {
+  background-color: transparent;
+  border: none;
 }
 
-
+.icon-search {
+  width: 12px;
+  height: 12px;
+}
