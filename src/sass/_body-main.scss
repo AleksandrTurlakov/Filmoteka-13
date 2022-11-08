@@ -137,7 +137,7 @@
   @include font(500, 16px, 1.33, null);
   color: #ff6b08;
   @include desktop {
-    @include font(500, 25px, 1.33, null);
+    @include font(500, 26px, 1.33, null);
   }
 }
 .filter-input:checked + .state {
