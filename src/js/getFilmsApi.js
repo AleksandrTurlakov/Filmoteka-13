@@ -1,10 +1,4 @@
-// import axios from 'axios';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-// const BASE_URL = `https://api.themoviedb.org/3`;
-// const KEY = `4556eff0e1693d6c81c92e5f5a201c65`;
-// const MEDIA_TYPE = `movie`;
-// // const TIME_WINDOW = `week`;
 
 // // Получение фильмов по поиску
 
