@@ -48,6 +48,7 @@ const genres = {
 function onSubmit(evt) {
   // let page = 1;
   evt.preventDefault()
+  
   const form = evt.currentTarget;
   console.log('form', form);
   console.dir('form dir', form);
@@ -74,17 +75,20 @@ function onSubmit(evt) {
       transformGenres(moviesData);
       
       // СКРОЛ
-      window.addEventListener('scroll', createElafterScroll);
+      window.addEventListener('scroll', createElafterScroll2);
       console.log('page-2', page);
-
-     
     }
 
-
     //  проверяю скрол
-      console.log('window.scrollY', window.scrollY);
+    console.log('window.scrollY', window.scrollY);
+    createElafterScroll2();
+       
+  })
 
-    function createElafterScroll() {
+ 
+}
+
+function createElafterScroll2() {
         // проверяю условие
         console.log('window.scrollY + window.innerHeight', window.scrollY + window.innerHeight);
         console.log('document.documentElement.scrollHeight', document.documentElement.scrollHeight);
@@ -93,23 +97,23 @@ function onSubmit(evt) {
     document.documentElement.scrollHeight
   ) {
     // Это addPage()-----------
-    page += 1;
-    console.log('addpage2', page);
-    getFilmSearch(name, page).then(res => transformGenres(res));
-    // Проверка максимума найденных фильмов
-        if (page === 1000 || page === data.totalItems) {
-    Notify.failure('END OF SEARCH')
-    window.removeEventListener('scroll', createElafterScroll);
-    }
-    // ------------------------
-}
-    }
-    window.addEventListener('scroll', createElafterScroll);
     
-  })
-
- 
-}
+    console.log('addpage2', page);
+       // Проверка максимума найденных фильмов
+    if ( page === 1000 || page*20 >= data.totalItems) {
+      console.log('page*20', page*20);
+      console.log('data.totalItems', data.totalItems);
+      window.removeEventListener('scroll', createElafterScroll2);
+      return Notify.failure('END OF SEARCH');
+    } else {
+      page += 1;
+      getFilmSearch(name, page).then(res => transformGenres(res));
+    }
+    window.addEventListener('scroll', createElafterScroll2);
+     // ------------------------
+  }
+  
+    }
 
 // копия ---- buildElements
 export function transformGenres(response) {
