@@ -1,0 +1,52 @@
+<div class='modal' id={{id}}>
+  <button class='button-close'>
+    <svg class='button-close__icon' width='30' height='30'>
+      <use href='./images/symbol-defs.svg#icon-close'></use>
+    </svg>
+  </button>
+  <div class='modal__poster'>
+
+    <picture>
+
+      <source srcset="{{src}}" media='(min-width: 1200px)' />
+      <source srcset="{{src}}" media='(min-width: 768px)' />
+      <source srcset="{{src}}" media='(min-width: 320px)' />
+
+      <img class='modal__image' src="{{src}}"" alt="{{name}}"" width='450' />
+    </picture>
+
+  </div>
+
+  <div class='modal__filmBox'>
+    <h2 class='modal__name'>{{name}}</h2>
+
+    <table class='modal__table'>
+      <tr>
+        <td class='modal__title'>Vote / votes</td>
+        <td><span class='modal__vote'>{{vote}}</span>
+          /
+          <span class='vote__total'>{{vote_count}}</span></td>
+      </tr>
+      <tr>
+        <td class='modal__title'>Popularity</td>
+        <td>{{popularity}}</td>
+      </tr>
+      <tr>
+        <td class='modal__title'>Original Title</td>
+        <td class='modal__nameOriginal'>{{original_title}}</td>
+      </tr>
+      <tr>
+        <td class='modal__title'>Genre</td>
+        <td>{{genr}}</td>
+      </tr>
+    </table>
+
+    <h3>About</h3>
+    <p class='modal__description'>{{overview}}</p>
+
+    <div class='modal__buttons'>
+      <button class='modal__watchedButton'>Add to watched</button>
+      <button class='modal__queueButton'>Add to queue</button>
+    </div>
+  </div>
+</div>

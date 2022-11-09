@@ -4,8 +4,8 @@ import card from './templates/card.hbs';
 const filter = document.querySelector('.filter');
 const container = document.querySelector('.container');
 const filmList = document.querySelector('.film-list');
-const form=document.querySelector('.search__form')
- let URL = '';
+const form = document.querySelector('.search__form');
+let URL = '';
 let page = 1;
 const URL_TO_WEEK = `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=`;
 const URL_TO_DAY = `https://api.themoviedb.org/3/trending/movie/day?api_key=7bfeb33324f72574136d1cd14ae769b5&page=`;
@@ -36,35 +36,33 @@ const genres = {
 let allPages = null;
 let allResults = null;
 
- function mainPage(URL, page) {
+function mainPage(URL, page) {
   getDataApi(URL + page).then(response => buildElements(response));
-  
+
   window.addEventListener('scroll', createElafterScroll);
 }
 
 function addPage() {
   page += 1;
-  getDataApi(URL + page).then(res =>buildElements(res));
+  getDataApi(URL + page).then(res => buildElements(res));
   if (page === 1000) {
     window.removeEventListener('scroll', createElafterScroll);
   }
 }
 
 function buildElements(response) {
-  
-   allPages = response.total_pages;
-   allResults = response.total_results;
-  if (allPages === 1||allPages === 0||page!==1&&page===allPages) {
-  window.removeEventListener('scroll', createElafterScroll);
+  allPages = response.total_pages;
+  allResults = response.total_results;
+  if (allPages === 1 || allPages === 0 || (page !== 1 && page === allPages)) {
+    window.removeEventListener('scroll', createElafterScroll);
   }
- 
+
   response.results.map(item => {
     function auditGanres() {
-  
       if (item.genre_ids.length < 3) {
         return item.genre_ids.map(elem => genres[elem]).join(', ');
-      };
-       return (
+      }
+      return (
         item.genre_ids
           .map(elem => genres[elem])
           .slice(0, 2)
@@ -74,8 +72,7 @@ function buildElements(response) {
     function auditYear() {
       if (!item.release_date) {
         return 'unknown year';
-      }
-      else  return item.release_date.slice(0, 4); 
+      } else return item.release_date.slice(0, 4);
     }
     function srcAudit() {
       if (!item.poster_path) {
@@ -88,13 +85,12 @@ function buildElements(response) {
     const name = item.title.toUpperCase();
     const year = auditYear();
     const src = srcAudit();
-    const data = { name, year, genr, vote, src };
+    const id = item.id;
+    const data = { name, year, genr, vote, src, id };
     filmList.insertAdjacentHTML('beforeend', card(data));
-    
   });
-
 }
-  function createElafterScroll() {
+function createElafterScroll() {
   if (
     window.scrollY + window.innerHeight >=
     document.documentElement.scrollHeight
@@ -103,7 +99,6 @@ function buildElements(response) {
   }
 }
 function onButtonChange(event) {
-   
   page = 1;
   switch (event.target.value) {
     case 'top_for_week':
@@ -145,9 +140,8 @@ function onSubmitClick(event) {
   setTimeout(() => {
     if (allResults !== 0) {
       Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`);
-    }else Notiflix.Notify.failure("Sorry, we couldn't find anything");
+    } else Notiflix.Notify.failure("Sorry, we couldn't find anything");
   }, 300);
-   
 }
 
 mainPage(URL, page);
