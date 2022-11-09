@@ -33,31 +33,23 @@ const genres = {
   10752: 'War',
   37: 'Western',
 };
-let allPages = null;
+let options = {
+  //  totalItems: null,
+        itemsPerPage: 20,
+        visiblePages:5
+  };
+// let allPages = null;
 let allResults = null;
 
  function mainPage(URL, page) {
-  getDataApi(URL + page).then(response => buildElements(response));
-  
-  window.addEventListener('scroll', createElafterScroll);
-}
-
-function addPage() {
-  page += 1;
-  getDataApi(URL + page).then(res =>buildElements(res));
-  if (page === 1000) {
-    window.removeEventListener('scroll', createElafterScroll);
-  }
-}
+  getDataApi(URL + page).then(response => buildElements(response)).then(res=>{});
+ }
 
 function buildElements(response) {
   
-   allPages = response.total_pages;
    allResults = response.total_results;
-  if (allPages === 1||allPages === 0||page!==1&&page===allPages) {
-  window.removeEventListener('scroll', createElafterScroll);
-  }
- 
+  options.totalItems = allResults;
+
   response.results.map(item => {
     function auditGanres() {
   
@@ -95,16 +87,8 @@ function buildElements(response) {
   });
 
 }
-  function createElafterScroll() {
-  if (
-    window.scrollY + window.innerHeight >=
-    document.documentElement.scrollHeight
-  ) {
-    addPage();
-  }
-}
 function onButtonChange(event) {
-   
+   instance.reset();
   page = 1;
   switch (event.target.value) {
     case 'top_for_week':
@@ -139,6 +123,7 @@ form.addEventListener('submit', onSubmitClick);
 function onSubmitClick(event) {
   let search = form.filmName.value;
   event.preventDefault();
+  instance.reset();
   page = 1;
   filmList.innerHTML = '';
   URL = `https://api.themoviedb.org/3/search/movie?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&query=${search}&page=`;
@@ -148,7 +133,24 @@ function onSubmitClick(event) {
       Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`);
     }else Notiflix.Notify.failure("Sorry, we couldn't find anything");
   }, 300);
-   
 }
 
 mainPage(URL, page);
+
+
+const Pagination = require('tui-pagination');
+const containerPag = document.getElementById('tui-pagination-container');
+const instance = new Pagination(containerPag, {
+        totalItems: 500,
+        itemsPerPage: 20,
+        visiblePages: 5
+    } )
+
+const tuiCont = document.querySelector('.tui-pagination');
+tuiCont.addEventListener('click', onTuiContClick);
+function onTuiContClick() {
+  page = instance.getCurrentPage();
+  filmList.innerHTML = '';
+
+  mainPage(URL, page);
+}
