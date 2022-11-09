@@ -5,3 +5,4 @@ import { modal } from './js/modal';
 import { scrollBtn } from './js/scrollBtn';
 import { loader } from './js/loader';
 import { addWatchedQue } from './js/addWatchedQue';
+import { myLibraryPage } from './js/myLibraryPage';
