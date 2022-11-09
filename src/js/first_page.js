@@ -36,6 +36,14 @@ const genres = {
 let allPages = null;
 let allResults = null;
 
+// змінна для Notiflix
+const msgOptions = {
+    position: 'center-top',
+    distance: '160px',
+    timeout: 2000,
+    clickToClose: true
+}
+
 function mainPage(URL, page) {
   getDataApi(URL + page).then(response => buildElements(response));
 
@@ -139,8 +147,8 @@ function onSubmitClick(event) {
   mainPage(URL, page);
   setTimeout(() => {
     if (allResults !== 0) {
-      Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`);
-    } else Notiflix.Notify.failure("Sorry, we couldn't find anything");
+      Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`, msgOptions);
+    } else Notiflix.Notify.failure("Sorry, we couldn't find anything", msgOptions);
   }, 300);
 }
 
