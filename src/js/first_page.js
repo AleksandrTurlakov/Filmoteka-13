@@ -88,7 +88,8 @@ function buildElements(response) {
     const name = item.title.toUpperCase();
     const year = auditYear();
     const src = srcAudit();
-    const data = { name, year, genr, vote, src };
+    const id = item.id;
+    const data = { name, year, genr, vote, src,id };
     filmList.insertAdjacentHTML('beforeend', card(data));
     
   });
