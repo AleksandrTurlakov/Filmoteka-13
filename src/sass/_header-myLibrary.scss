@@ -2,7 +2,7 @@
   color: #ffffff;
   font-weight: 500;
   &__background {
-    background: url('../img/header/lib_mob_1x-min.jpg') no-repeat git;
+    background: url('../img/header/lib_mob_1x-min.jpg') no-repeat center;
     width: 100%;
     background-size: cover;
     max-height: 216px;
@@ -43,7 +43,6 @@
     & img {
       display: inline-block;
       padding-right: 10px;
-      
     }
   }
   &__menu {
@@ -61,7 +60,7 @@
       list-style: none;
 
       &:nth-child(1) {
-        padding-right: 39px;
+        margin-right: 39px;
       }
 
       & a {
@@ -88,7 +87,6 @@
     @include desktop {
       width: 311px;
     }
-
   }
 
   &__btn {
@@ -102,6 +100,7 @@
     color: #fff;
     background-color: transparent;
     border: solid 1px #ffffff;
+    transition: all 0.5s;
 
     @include start {
       width: 129.53px;

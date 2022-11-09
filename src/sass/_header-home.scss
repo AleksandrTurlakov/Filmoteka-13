@@ -53,6 +53,9 @@
 .search__input {
   background-color: transparent;
   border: none;
+  &:focus {
+    outline: none;
+  }
 
   width: 375px;
   &::placeholder {
@@ -70,6 +73,18 @@
 }
 
 .icon-search {
-  width: 12px;
-  height: 12px;
+  transition: all 0.3s;
+  width: 14px;
+  height: 14px;
+  &:hover {
+    scale: 1.3;
+  }
+}
+.link--oreol {
+  transition: all 0.3s;
+  &:hover {
+    color: #ff6b08;
+    scale: 1.1;
+    transition: all 0.3s;
+  }
 }
