@@ -53,6 +53,9 @@
 .search__input {
   background-color: transparent;
   border: none;
+  &:focus {
+    outline: none;
+  }
 
   width: 375px;
   &::placeholder {
@@ -70,6 +73,10 @@
 }
 
 .icon-search {
-  width: 12px;
-  height: 12px;
+  transition: all 0.5s;
+  width: 14px;
+  height: 14px;
+  &:hover {
+    scale: 1.3;
+  }
 }
