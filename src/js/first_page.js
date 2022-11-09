@@ -4,8 +4,8 @@ import card from './templates/card.hbs';
 const filter = document.querySelector('.filter');
 const container = document.querySelector('.container');
 const filmList = document.querySelector('.film-list');
-const form=document.querySelector('.search__form')
- let URL = '';
+const form = document.querySelector('.search__form');
+let URL = '';
 let page = 1;
 const URL_TO_WEEK = `https://api.themoviedb.org/3/trending/movie/week?api_key=7bfeb33324f72574136d1cd14ae769b5&page=`;
 const URL_TO_DAY = `https://api.themoviedb.org/3/trending/movie/day?api_key=7bfeb33324f72574136d1cd14ae769b5&page=`;
@@ -41,6 +41,7 @@ let options = {
 // let allPages = null;
 let allResults = null;
 
+
  function mainPage(URL, page) {
   getDataApi(URL + page).then(response => buildElements(response)).then(res=>{});
  }
@@ -50,13 +51,13 @@ function buildElements(response) {
    allResults = response.total_results;
   options.totalItems = allResults;
 
+
   response.results.map(item => {
     function auditGanres() {
-  
       if (item.genre_ids.length < 3) {
         return item.genre_ids.map(elem => genres[elem]).join(', ');
-      };
-       return (
+      }
+      return (
         item.genre_ids
           .map(elem => genres[elem])
           .slice(0, 2)
@@ -66,8 +67,7 @@ function buildElements(response) {
     function auditYear() {
       if (!item.release_date) {
         return 'unknown year';
-      }
-      else  return item.release_date.slice(0, 4); 
+      } else return item.release_date.slice(0, 4);
     }
     function srcAudit() {
       if (!item.poster_path) {
@@ -81,14 +81,16 @@ function buildElements(response) {
     const year = auditYear();
     const src = srcAudit();
     const id = item.id;
-    const data = { name, year, genr, vote, src,id };
-    filmList.insertAdjacentHTML('beforeend', card(data));
-    
-  });
 
+    const data = { name, year, genr, vote, src,id };
+
+    filmList.insertAdjacentHTML('beforeend', card(data));
+  });
 }
+
 function onButtonChange(event) {
    instance.reset();
+
   page = 1;
   switch (event.target.value) {
     case 'top_for_week':
@@ -131,7 +133,7 @@ function onSubmitClick(event) {
   setTimeout(() => {
     if (allResults !== 0) {
       Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`);
-    }else Notiflix.Notify.failure("Sorry, we couldn't find anything");
+    } else Notiflix.Notify.failure("Sorry, we couldn't find anything");
   }, 300);
 }
 
@@ -154,3 +156,4 @@ function onTuiContClick() {
 
   mainPage(URL, page);
 }
+

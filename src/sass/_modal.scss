@@ -13,16 +13,17 @@
   padding: 48px 20px 40px 20px;
   font-weight: 500;
   letter-spacing: normal;
+  z-index: 11;
 
   @media screen and (min-width: 768px) {
     display: flex;
-    max-width: 704px;
+    min-width: 704px;
     height: 552px;
     padding: 40px 72px 40px 36px;
   }
 
-  @media screen and (min-width: 1200px) {
-    max-width: 806px;
+  @media screen and (min-width: 1280px) {
+    min-width: 806px;
     height: 558px;
     padding: 40px 12px 40px 12px;
   }
@@ -32,7 +33,7 @@
       max-width: 264px;
     }
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: 1280px) {
       max-width: 391px;
     }
   }
@@ -47,8 +48,8 @@
       margin-right: 68px;
     }
 
-    @media screen and (min-width: 1200px) {
-      height: 475px;
+    @media screen and (min-width: 1280px) {
+      height: 478px;
       width: 375px;
       margin-right: 16px;
     }
@@ -72,7 +73,11 @@
 
   &__title {
     color: #8c8c8c;
-    padding-right: 50px;
+    padding-right: 39px;
+
+    @media screen and (min-width: 1280px) {
+      padding-right: 83px;
+    }
   }
 
   &__vote {
@@ -81,12 +86,19 @@
     color: #ffffff;
     text-align: center;
     width: 36px;
+    height: 13px;
     display: inline-block;
     line-height: 1.16;
   }
 
   &__total {
     line-height: 1.16;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    width: 36px;
+    height: 13px;
+    display: inline-block;
+    text-align: center;
   }
 
   &__nameOriginal {
@@ -109,7 +121,7 @@
   &__buttons {
     justify-content: space-between;
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: 1280px) {
       justify-content: left;
     }
   }
@@ -122,12 +134,24 @@
     width: 110px;
     height: 44px;
     text-transform: uppercase;
+    font-weight: 500;
+
+    &:hover {
+      background-color: white;
+      cursor: pointer;
+      color: black;
+      border: none;
+      border: 1px solid #000000;
+    }
 
     @media screen and (min-width: 768px) {
       width: 125px;
       height: 44px;
     }
-    @media screen and (min-width: 768px) {
+
+    @media screen and (min-width: 1280px) {
+      width: 125px;
+      height: 44px;
       margin-left: 8px;
       margin-right: 15px;
     }
@@ -141,6 +165,13 @@
     text-transform: uppercase;
     background-color: #fff;
     font-weight: 500;
+
+    &:hover {
+      background-color: #ff6b01;
+      cursor: pointer;
+      color: white;
+      border: none;
+    }
   }
 
   &__buttons {
@@ -167,7 +198,7 @@
   }
 
   &:hover &__icon {
-    fill: #2196f3;
+    fill: #ff6b01;
   }
 }
 
@@ -177,7 +208,7 @@
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 10;
   left: 50%;
   top: 0px;
   transform: translateX(-50%);
@@ -193,4 +224,14 @@
     pointer-events: none;
     visibility: hidden;
   }
+}
+
+.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
