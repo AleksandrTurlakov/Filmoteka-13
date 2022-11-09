@@ -1,4 +1,12 @@
 .main-image {
+  transition: all 0.4s;
+  &:hover {
+    cursor: pointer;
+    scale: 1.025;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 1),
+      -23px 0 20px -23px rgba(0, 0, 0, 0.8),
+      23px 0 20px -23px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  }
   object-fit: cover;
   border-radius: 1.5em;
   height: 398px;
@@ -60,6 +68,10 @@
   padding-left: 5px;
 }
 .item-name {
+  transition: all 0.3s;
+  &:hover {
+    text-decoration: underline;
+  }
   text-align: start;
   margin-bottom: 4px;
   @include font(500, 13px, 1.33, null);
@@ -148,4 +160,9 @@
 }
 div.pretty:hover {
   color: #ff6b08;
+}
+.item-name,
+.item-genre,
+.item-year {
+  cursor: pointer;
 }
