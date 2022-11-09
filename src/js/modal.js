@@ -6,32 +6,39 @@ const filmListModal = document.querySelector('.film-list');
 const filmItemModal = document.querySelector('.film-item');
 const modal = document.querySelector('.backdrop');
 const closeModal = document.querySelector('.button-close');
-// console.log(closeModal);
+console.log(closeModal);
 const body = document.querySelector('body');
 
 let movie_id = '';
-const URL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=7bfeb33324f72574136d1cd14ae769b5`;
 
 filmListModal.addEventListener('click', handleCardClick);
 function handleCardClick(evt) {
   // if (!evt.target.classList.contains('film-item')) return;
   if (evt.target === evt.currentTarget) return;
-
+  modal.innerHTML = '';
   const parent = evt.target.closest('li');
   console.log(parent);
   movie_id = parent.dataset.id;
   console.log(movie_id);
-  function findFilm(URL) {
+  const URL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=7bfeb33324f72574136d1cd14ae769b5`;
+
+  // async function testData() {
+  //   return await fetch(URL)
+  //     .then(resp => resp.json())
+  //     .then(response => buildElements(response));
+  // }
+  // testData();
+
+  function findFilm() {
     getDataApi(URL).then(response => buildElements(response));
   }
-  // filmItemModal.innerHTML = '';
-  console.log(response);
+  findFilm();
+
   function buildElements(response) {
     response.map(item => {
       function auditGanres() {
-        genres.flatMap(genre => genre.name);
+        return genres.map(genre => genre.name);
       }
-
       function srcAudit() {
         if (!item.poster_path) {
           return `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`;
@@ -59,12 +66,12 @@ function handleCardClick(evt) {
       };
       console.log(data);
       modal.insertAdjacentHTML('beforeend', modalWindow(data));
-      console.log(modal);
+      // console.log(modalWindow(data));
     });
   }
 
   modal.addEventListener('click', toggleModal);
-  closeModal.addEventListener('click', toggleModal);
+  // closeModal.addEventListener('click', toggleModal);
   function toggleModal() {
     modal.classList.toggle('is-hidden');
     body.classList.toggle('no-scroll');
