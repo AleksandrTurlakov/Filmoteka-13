@@ -5,15 +5,15 @@ import modalWindow from './templates/modalWindow.hbs';
 const filmListModal = document.querySelector('.film-list');
 const filmItemModal = document.querySelector('.film-item');
 const modal = document.querySelector('.backdrop');
+const body = document.querySelector('body');
 const closeModal = document.querySelector('.button-close');
 console.log(closeModal);
-const body = document.querySelector('body');
 
 let movie_id = '';
 
 filmListModal.addEventListener('click', handleCardClick);
 function handleCardClick(evt) {
-  // if (!evt.target.classList.contains('film-item')) return;
+  // if (!evt.target.classList.contains('film-list')) return;
   if (evt.target === evt.currentTarget) return;
   modal.innerHTML = '';
   const parent = evt.target.closest('li');
@@ -35,46 +35,60 @@ function handleCardClick(evt) {
   findFilm();
 
   function buildElements(response) {
-    response.map(item => {
-      function auditGanres() {
-        return genres.map(genre => genre.name);
+    const genr = response.genres.map(genr => genr.name);
+    console.log(genr);
+
+    function srcAudit() {
+      if (!response.poster_path) {
+        return `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`;
       }
-      function srcAudit() {
-        if (!item.poster_path) {
-          return `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`;
-        }
-        return `https://image.tmdb.org/t/p/w500${item.poster_path}`;
-      }
-      const src = srcAudit();
-      const name = item.title.toUpperCase();
-      const vote = item.vote_average.toFixed(1);
-      const vote_count = item.vote_count;
-      const popularity = item.popularity;
-      const original_title = item.original_title;
-      const genr = auditGanres();
-      const overview = item.overview;
-      const id = item.id;
-      const data = {
-        src,
-        name,
-        vote,
-        vote_count,
-        popularity,
-        original_title,
-        genr,
-        overview,
-      };
-      console.log(data);
-      modal.insertAdjacentHTML('beforeend', modalWindow(data));
-      // console.log(modalWindow(data));
-    });
+      return `https://image.tmdb.org/t/p/w500${response.poster_path}`;
+    }
+    const src = srcAudit();
+    console.log(src);
+    const name = response.title.toUpperCase();
+    console.log(name);
+    const vote = response.vote_average.toFixed(1);
+    console.log(vote);
+    const vote_count = response.vote_count;
+    console.log(vote_count);
+    const popularity = response.popularity;
+    console.log(popularity);
+    const original_title = response.original_title;
+    console.log(original_title);
+    const overview = response.overview;
+    console.log(overview);
+    // const id = response.id;
+    const data = {
+      src,
+      name,
+      vote,
+      vote_count,
+      popularity,
+      original_title,
+      genr,
+      overview,
+    };
+    console.log(data);
+    modal.insertAdjacentHTML('beforeend', modalWindow(data));
   }
 
-  modal.addEventListener('click', toggleModal);
-  // closeModal.addEventListener('click', toggleModal);
-  function toggleModal() {
-    modal.classList.toggle('is-hidden');
-    body.classList.toggle('no-scroll');
+  modal.addEventListener('click', openModal);
+  function openModal() {
+    modal.classList.remove('is-hidden');
+    body.classList.add('no-scroll');
+    modal.removeEventListener('click', openModal);
+  }
+
+  openModal();
+
+  function closeModal() {
+    if (!modal.classList.contains('is-hidden')) {
+      modal.classList.toggle('is-hidden');
+      body.classList.toggle('no-scroll');
+      closeModal.addEventListener('click', closeModal);
+    }
+    closeModal();
   }
 
   document.addEventListener('keydown', escapeClose);
@@ -83,8 +97,8 @@ function handleCardClick(evt) {
     console.log(event.code);
     if (event.code === 'Escape') {
       modal.classList.add('is-hidden');
-      body.classList.toggle('no-scroll');
-      document.removeEventListener('keydown', escapeClose);
+      body.classList.remove('no-scroll');
+      // document.removeEventListener('keydown', escapeClose);
     }
   }
 }
