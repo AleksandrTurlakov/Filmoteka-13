@@ -9,27 +9,18 @@ const filmItemModal = document.querySelector('.film-item');
 const modal = document.querySelector('.backdrop');
 const body = document.querySelector('body');
 const closeModal = document.querySelector('.button-close');
-console.log(closeModal);
 
 let movie_id = '';
 
 filmListModal.addEventListener('click', handleCardClick);
 function handleCardClick(evt) {
-  // if (!evt.target.classList.contains('film-list')) return;
   if (evt.target === evt.currentTarget) return;
   modal.innerHTML = '';
   const parent = evt.target.closest('li');
-  console.log(parent);
+ 
   movie_id = parent.dataset.id;
-  console.log(movie_id);
-  const URL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=7bfeb33324f72574136d1cd14ae769b5`;
 
-  // async function testData() {
-  //   return await fetch(URL)
-  //     .then(resp => resp.json())
-  //     .then(response => buildElements(response));
-  // }
-  // testData();
+  const URL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=7bfeb33324f72574136d1cd14ae769b5`;
 
   function findFilm() {
     getDataApi(URL).then(response => buildElements(response));
@@ -37,8 +28,7 @@ function handleCardClick(evt) {
   findFilm();
 
   function buildElements(response) {
-    const genr = response.genres.map(genr => genr.name);
-    console.log(genr);
+    const genr = response.genres.map(genr => genr.name).join(', ');
 
     function srcAudit() {
       if (!response.poster_path) {
@@ -47,20 +37,12 @@ function handleCardClick(evt) {
       return `https://image.tmdb.org/t/p/w500${response.poster_path}`;
     }
     const src = srcAudit();
-    console.log(src);
     const name = response.title.toUpperCase();
-    console.log(name);
     const vote = response.vote_average.toFixed(1);
-    console.log(vote);
     const vote_count = response.vote_count;
-    console.log(vote_count);
     const popularity = response.popularity;
-    console.log(popularity);
     const original_title = response.original_title;
-    console.log(original_title);
     const overview = response.overview;
-    console.log(overview);
-    
     const data = {
       src,
       name,
@@ -72,7 +54,7 @@ function handleCardClick(evt) {
       overview,
       id: response.id,
     };
-    console.log(data);
+  
     modal.insertAdjacentHTML('beforeend', modalWindow(data));
   
 
@@ -106,7 +88,6 @@ function handleCardClick(evt) {
   document.addEventListener('keydown', escapeClose);
   function escapeClose(event) {
     if (event.code !== 'Escape') return;
-    console.log(event.code);
     if (event.code === 'Escape') {
       modal.classList.add('is-hidden');
       body.classList.remove('no-scroll');
