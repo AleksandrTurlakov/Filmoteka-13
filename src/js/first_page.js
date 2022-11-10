@@ -38,20 +38,18 @@ let allPages = null;
 let allResults = null;
 
 const msgOptionsNotiflix = {
-    position: 'center-top',
-    distance: '150px',
-    timeout: 3000,
-    clickToClose: true
+  position: 'center-top',
+  distance: '150px',
+  timeout: 3000,
+  clickToClose: true,
+};
+
+function mainPage(URL, page) {
+  getDataApi(URL + page).then(response => buildElements(response));
 }
 
- function mainPage(URL, page) {
-  getDataApi(URL + page).then(response => buildElements(response));
- }
-
 function buildElements(response) {
-  
-   allResults = response.total_results;
-
+  allResults = response.total_results;
 
   response.results.map(item => {
     function auditGanres() {
@@ -83,14 +81,14 @@ function buildElements(response) {
     const src = srcAudit();
     const id = item.id;
 
-    const data = { name, year, genr, vote, src,id };
+    const data = { name, year, genr, vote, src, id };
 
     filmList.insertAdjacentHTML('beforeend', card(data));
   });
 }
 
 function onButtonChange(event) {
-   instance.reset();
+  instance.reset();
 
   page = 1;
   switch (event.target.value) {
@@ -133,21 +131,27 @@ function onSubmitClick(event) {
   mainPage(URL, page);
   setTimeout(() => {
     if (allResults !== 0) {
-      Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`, msgOptionsNotiflix);
-    } else Notiflix.Notify.failure("Sorry, we couldn't find anything", msgOptionsNotiflix);
+      Notiflix.Notify.success(
+        `Great, Great, we found ${allResults}  results`,
+        msgOptionsNotiflix
+      );
+    } else
+      Notiflix.Notify.failure(
+        "Sorry, we couldn't find anything",
+        msgOptionsNotiflix
+      );
   }, 300);
 }
 
 mainPage(URL, page);
 
-
 const Pagination = require('tui-pagination');
 const containerPag = document.getElementById('tui-pagination-container');
 const instance = new Pagination(containerPag, {
-        totalItems: 500,
-        itemsPerPage: 20,
-        visiblePages: 5
-    } )
+  totalItems: 500,
+  itemsPerPage: 20,
+  visiblePages: 5,
+});
 
 const tuiCont = document.querySelector('.tui-pagination');
 tuiCont.addEventListener('click', onTuiContClick);
@@ -157,4 +161,3 @@ function onTuiContClick() {
 
   mainPage(URL, page);
 }
-
