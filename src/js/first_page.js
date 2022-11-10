@@ -37,15 +37,7 @@ const genres = {
   37: 'Western',
 };
 
-
 let allResults = null;
-
-const msgOptionsNotiflix = {
-    position: 'center-top',
-    distance: '150px',
-    timeout: 3000,
-    clickToClose: true
-}
 
 const msgOptionsNotiflix = {
     position: 'center-top',
