@@ -41,8 +41,11 @@
   justify-content: start;
 }
 .item-genre {
-  @include font(500, 13px, 1.33, null);
+  @include font(500, 12px, 1.33, null);
   color: #ff6b08;
+  @include tablet {
+    @include font(null, 15px, 1.2, null);
+  }
   @include desktop {
     @include font(null, 18px, 1.2, null);
   }
@@ -60,7 +63,10 @@
   }
 }
 .item-year {
-  @include font(500, 13px, 1.33, null);
+  @include font(500, 12px, 1.33, null);
+  @include tablet {
+    @include font(null, 15px, 1.2, null);
+  }
   @include desktop {
     @include font(500, 18px, 1.2, null);
   }
@@ -76,6 +82,9 @@
   text-align: start;
   margin-bottom: 4px;
   @include font(500, 13px, 1.33, null);
+  @include tablet {
+    @include font(null, 15px, 1.2, null);
+  }
   @include desktop {
     @include font(500, 20px, 1.2, null);
   }
@@ -84,6 +93,7 @@
 }
 .film-list {
   margin: 0;
+  margin-bottom: 30px;
   display: grid;
   row-gap: 20px;
   justify-content: space-around;
@@ -150,7 +160,7 @@
   @include font(500, 17px, 1.33, null);
   color: #ff6b08;
   @include tablet {
-    @include font(500, 16px, 1.33, null);
+    @include font(500, 15px, 1.33, null);
   }
   @include desktop {
     @include font(500, 26px, 1.33, null);
@@ -199,7 +209,10 @@ div.pretty:hover {
 .tui-pagination .tui-page-btn {
   display: inline-block;
   position: relative;
-  width: 25px;
+  width: 23px;
+  @include mobile {
+    width: 26px;
+  }
   @include tablet {
     width: 28px;
   }
@@ -215,7 +228,7 @@ div.pretty:hover {
   text-decoration: none;
   vertical-align: middle;
   border: 1px solid #ddd;
-  border-width: 1px 0;
+  border-width: 1px;
 }
 
 .tui-pagination .tui-page-btn:hover {
@@ -225,13 +238,13 @@ div.pretty:hover {
 .tui-pagination .tui-is-selected,
 .tui-pagination strong {
   color: #fff;
-  background: #4b96e6;
-  border-color: #4b96e6;
+  background: #ff6b08;
+  border-color: #ff6b08;
   cursor: default;
 }
 
 .tui-pagination .tui-is-selected:hover {
-  background-color: #4b96e6;
+  background-color: #ff6b08;
 }
 
 .tui-pagination .tui-first-child.tui-is-selected,
@@ -250,11 +263,11 @@ div.pretty:hover {
 }
 
 .tui-pagination .tui-first-child.tui-is-selected {
-  border-left: 1px solid #4b96e6;
+  border-left: 1px solid #ff6b08;
 }
 
 .tui-pagination .tui-last-child.tui-is-selected {
-  border-right: 1px solid #4b96e6;
+  border-right: 1px solid #ff6b08;
 }
 
 .tui-pagination .tui-first,
