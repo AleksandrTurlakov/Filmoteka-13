@@ -2,6 +2,8 @@ import { getDataApi } from './getDataApi';
 import card from './templates/card.hbs';
 import modalWindow from './templates/modalWindow.hbs';
 
+import { handleClick } from './addWatchedQue';
+
 const filmListModal = document.querySelector('.film-list');
 const filmItemModal = document.querySelector('.film-item');
 const modal = document.querySelector('.backdrop');
@@ -41,7 +43,6 @@ function handleCardClick(evt) {
     const popularity = response.popularity;
     const original_title = response.original_title;
     const overview = response.overview;
-  
     const data = {
       src,
       name,
@@ -51,10 +52,20 @@ function handleCardClick(evt) {
       original_title,
       genr,
       overview,
+      id: response.id,
     };
   
     modal.insertAdjacentHTML('beforeend', modalWindow(data));
-  }
+  
+
+  const QUEUE_SELECTOR = document.querySelector('.modal__queueButton');
+  const WATCHED_SELECTOR = document.querySelector('.modal__watchedButton');
+
+  [QUEUE_SELECTOR, WATCHED_SELECTOR].map((actionButton) => {
+    actionButton.addEventListener('click', (e) => handleClick(e, data));
+  })
+}
+
 
   modal.addEventListener('click', openModal);
   function openModal() {
