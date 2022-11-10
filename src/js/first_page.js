@@ -1,6 +1,9 @@
 import { getDataApi } from './getDataApi';
 import Notiflix from 'notiflix';
 import card from './templates/card.hbs';
+import Pagination from 'tui-pagination';
+const containerPag = document.getElementById('tui-pagination-container');
+const tuiCont = document.querySelector('.tui-pagination');
 const filter = document.querySelector('.filter');
 const container = document.querySelector('.container');
 const filmList = document.querySelector('.film-list');
@@ -34,7 +37,6 @@ const genres = {
   37: 'Western',
 };
 
-let allPages = null;
 let allResults = null;
 
 const msgOptionsNotiflix = {
@@ -49,7 +51,9 @@ function mainPage(URL, page) {
 }
 
 function buildElements(response) {
+  
   allResults = response.total_results;
+  instance.setTotalItems(allResults);
 
   response.results.map(item => {
     function auditGanres() {
@@ -63,6 +67,7 @@ function buildElements(response) {
           .join(', ') + ', others'
       );
     }
+    
     function auditYear() {
       if (!item.release_date) {
         return 'unknown year';
@@ -88,7 +93,8 @@ function buildElements(response) {
 }
 
 function onButtonChange(event) {
-  instance.reset();
+
+   instance.reset();
 
   page = 1;
   switch (event.target.value) {
@@ -118,6 +124,22 @@ function onButtonChange(event) {
       break;
   }
 }
+ // -------PAGINATION
+const instance = new Pagination(containerPag
+  , { 
+    totalItems: 120,
+        itemsPerPage: 20,
+        visiblePages: 5
+}
+)
+tuiCont.addEventListener('click', onTuiContClick);
+function onTuiContClick() {
+  page = instance.getCurrentPage();
+  filmList.innerHTML = '';
+
+  mainPage(URL, page);
+}
+// -------------end-pagination
 
 filter.addEventListener('change', onButtonChange);
 form.addEventListener('submit', onSubmitClick);
@@ -142,7 +164,6 @@ function onSubmitClick(event) {
       );
   }, 300);
 }
-
 mainPage(URL, page);
 
 const Pagination = require('tui-pagination');
@@ -161,3 +182,4 @@ function onTuiContClick() {
 
   mainPage(URL, page);
 }
+
