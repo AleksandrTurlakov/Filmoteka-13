@@ -40,13 +40,13 @@ const genres = {
 let allResults = null;
 
 const msgOptionsNotiflix = {
-    position: 'center-top',
-    distance: '150px',
-    timeout: 3000,
-    clickToClose: true
-}
+  position: 'center-top',
+  distance: '150px',
+  timeout: 3000,
+  clickToClose: true,
+};
 
- function mainPage(URL, page) {
+function mainPage(URL, page) {
   getDataApi(URL + page).then(response => buildElements(response));
 }
 
@@ -54,6 +54,7 @@ function buildElements(response) {
   
   allResults = response.total_results;
   instance.setTotalItems(allResults);
+
   response.results.map(item => {
     function auditGanres() {
       if (item.genre_ids.length < 3) {
@@ -85,14 +86,16 @@ function buildElements(response) {
     const src = srcAudit();
     const id = item.id;
 
-    const data = { name, year, genr, vote, src,id };
+    const data = { name, year, genr, vote, src, id };
 
     filmList.insertAdjacentHTML('beforeend', card(data));
   });
 }
 
 function onButtonChange(event) {
+
    instance.reset();
+
   page = 1;
   switch (event.target.value) {
     case 'top_for_week':
@@ -150,8 +153,33 @@ function onSubmitClick(event) {
   mainPage(URL, page);
   setTimeout(() => {
     if (allResults !== 0) {
-      Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`, msgOptionsNotiflix);
-    } else Notiflix.Notify.failure("Sorry, we couldn't find anything", msgOptionsNotiflix);
+      Notiflix.Notify.success(
+        `Great, Great, we found ${allResults}  results`,
+        msgOptionsNotiflix
+      );
+    } else
+      Notiflix.Notify.failure(
+        "Sorry, we couldn't find anything",
+        msgOptionsNotiflix
+      );
   }, 300);
 }
 mainPage(URL, page);
+
+const Pagination = require('tui-pagination');
+const containerPag = document.getElementById('tui-pagination-container');
+const instance = new Pagination(containerPag, {
+  totalItems: 500,
+  itemsPerPage: 20,
+  visiblePages: 5,
+});
+
+const tuiCont = document.querySelector('.tui-pagination');
+tuiCont.addEventListener('click', onTuiContClick);
+function onTuiContClick() {
+  page = instance.getCurrentPage();
+  filmList.innerHTML = '';
+
+  mainPage(URL, page);
+}
+

@@ -17,7 +17,7 @@ function handleCardClick(evt) {
   if (evt.target === evt.currentTarget) return;
   modal.innerHTML = '';
   const parent = evt.target.closest('li');
- 
+
   movie_id = parent.dataset.id;
 
   const URL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=7bfeb33324f72574136d1cd14ae769b5`;
@@ -54,18 +54,16 @@ function handleCardClick(evt) {
       overview,
       id: response.id,
     };
-  
+
     modal.insertAdjacentHTML('beforeend', modalWindow(data));
-  
 
-  const QUEUE_SELECTOR = document.querySelector('.modal__queueButton');
-  const WATCHED_SELECTOR = document.querySelector('.modal__watchedButton');
+    const QUEUE_SELECTOR = document.querySelector('.modal__queueButton');
+    const WATCHED_SELECTOR = document.querySelector('.modal__watchedButton');
 
-  [QUEUE_SELECTOR, WATCHED_SELECTOR].map((actionButton) => {
-    actionButton.addEventListener('click', (e) => handleClick(e, data));
-  })
-}
-
+    [QUEUE_SELECTOR, WATCHED_SELECTOR].map(actionButton => {
+      actionButton.addEventListener('click', e => handleClick(e, data));
+    });
+  }
 
   modal.addEventListener('click', openModal);
   function openModal() {

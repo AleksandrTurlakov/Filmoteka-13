@@ -1,4 +1,4 @@
-const movieCardList = document.querySelector('.film-list');
+const movieCardList = document.querySelector('.library__list');
 
 export function myLibraryPage() {
   movieCardList.innerHTML = `<div class="library">
