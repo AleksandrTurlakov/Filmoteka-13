@@ -45,7 +45,6 @@ let allResults = null;
 function buildElements(response) {
   
    allResults = response.total_results;
- totalItems = allResults;
 
 
   response.results.map(item => {
