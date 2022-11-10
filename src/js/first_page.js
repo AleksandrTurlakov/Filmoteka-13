@@ -37,16 +37,7 @@ const genres = {
   37: 'Western',
 };
 
-
 let allResults = null;
-
-
-const msgOptionsNotiflix = {
-    position: 'center-top',
-    distance: '150px',
-    timeout: 3000,
-    clickToClose: true
-}
 
  function mainPage(URL, page) {
   getDataApi(URL + page).then(response => buildElements(response));
