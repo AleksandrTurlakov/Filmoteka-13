@@ -33,12 +33,12 @@ const genres = {
   10752: 'War',
   37: 'Western',
 };
-let options = {
-  //  totalItems: null,
-        itemsPerPage: 20,
-        visiblePages:5
-  };
-// let allPages = null;
+// let options = {
+//   //  totalItems: null,
+//         itemsPerPage: 20,
+//         visiblePages:5
+//   };
+let allPages = null;
 let allResults = null;
 
 
@@ -49,7 +49,7 @@ let allResults = null;
 function buildElements(response) {
   
    allResults = response.total_results;
-  options.totalItems = allResults;
+ totalItems = allResults;
 
 
   response.results.map(item => {

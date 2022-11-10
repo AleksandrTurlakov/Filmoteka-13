@@ -48,6 +48,7 @@
   }
   &::after {
     content: '';
+    margin-left: 5px;
     display: inline-block;
     width: 2px;
     height: 10px;
@@ -65,7 +66,7 @@
   }
 
   color: #ff6b08;
-  padding-left: 5px;
+  margin-left: 5px;
 }
 .item-name {
   transition: all 0.3s;
