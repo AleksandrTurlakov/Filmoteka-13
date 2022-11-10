@@ -39,7 +39,7 @@ let allResults = null;
 
 
  function mainPage(URL, page) {
-  getDataApi(URL + page).then(response => buildElements(response)).then(res=>{});
+  getDataApi(URL + page).then(response => buildElements(response));
  }
 
 function buildElements(response) {
