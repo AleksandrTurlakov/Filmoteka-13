@@ -199,6 +199,7 @@ div.pretty:hover {
 }
 
 .tui-pagination {
+  transition: all 0.3s;
   height: 28px;
   margin: 14px 0 12px;
   line-height: normal;

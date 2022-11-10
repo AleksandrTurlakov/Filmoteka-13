@@ -46,7 +46,16 @@ let allResults = null;
 function buildElements(response) {
   
   allResults = response.total_results;
-  instance.setTotalItems(allResults);
+  if (allResults < 21) {
+    instance.reset()
+    tuiCont.classList.add('visually-hidden');
+  
+  } else { 
+    instance.setTotalItems(allResults);
+    tuiCont.classList.remove('visually-hidden')
+    
+  }
+  
   response.results.map(item => {
     function auditGanres() {
       if (item.genre_ids.length < 3) {
@@ -134,9 +143,11 @@ function onTuiContClick() {
 filter.addEventListener('change', onButtonChange);
 form.addEventListener('submit', onSubmitClick);
 function onSubmitClick(event) {
-  let search = form.filmName.value;
-  event.preventDefault();
   instance.reset();
+  let search = form.filmName.value;
+  
+  event.preventDefault();
+  
   page = 1;
   filmList.innerHTML = '';
   URL = `https://api.themoviedb.org/3/search/movie?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&query=${search}&page=`;
