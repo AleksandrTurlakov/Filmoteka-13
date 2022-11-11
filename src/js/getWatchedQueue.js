@@ -1,4 +1,4 @@
-import cardEl from './js/templates/card.hbs';
+import cardEl from '../js/templates/card.hbs';
 const libraryUl = document.querySelector('.library__list');
 const watchedBtn = document.querySelector('#watched-btn');
 const queueBtn = document.querySelector('#queue-btn');
