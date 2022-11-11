@@ -1,6 +1,9 @@
 import { getDataApi } from './getDataApi';
 import Notiflix from 'notiflix';
 import card from './templates/card.hbs';
+import Pagination from 'tui-pagination';
+const containerPag = document.getElementById('tui-pagination-container');
+const tuiCont = document.querySelector('.tui-pagination');
 const filter = document.querySelector('.filter');
 const container = document.querySelector('.container');
 const filmList = document.querySelector('.film-list');
@@ -34,24 +37,21 @@ const genres = {
   37: 'Western',
 };
 
-let allPages = null;
 let allResults = null;
 
-const msgOptionsNotiflix = {
-    position: 'center-top',
-    distance: '150px',
-    timeout: 3000,
-    clickToClose: true
+function mainPage(URL, page) {
+  getDataApi(URL + page).then(response => buildElements(response));
 }
 
- function mainPage(URL, page) {
-  getDataApi(URL + page).then(response => buildElements(response));
- }
-
 function buildElements(response) {
-  
-   allResults = response.total_results;
-
+  allResults = response.total_results;
+  if (allResults < 21) {
+    instance.reset();
+    tuiCont.classList.add('visually-hidden');
+  } else {
+    instance.setTotalItems(allResults);
+    tuiCont.classList.remove('visually-hidden');
+  }
 
   response.results.map(item => {
     function auditGanres() {
@@ -65,6 +65,7 @@ function buildElements(response) {
           .join(', ') + ', others'
       );
     }
+
     function auditYear() {
       if (!item.release_date) {
         return 'unknown year';
@@ -83,15 +84,14 @@ function buildElements(response) {
     const src = srcAudit();
     const id = item.id;
 
-    const data = { name, year, genr, vote, src,id };
+    const data = { name, year, genr, vote, src, id };
 
     filmList.insertAdjacentHTML('beforeend', card(data));
   });
 }
 
 function onButtonChange(event) {
-   instance.reset();
-
+  instance.reset();
   page = 1;
   switch (event.target.value) {
     case 'top_for_week':
@@ -120,36 +120,12 @@ function onButtonChange(event) {
       break;
   }
 }
-
-filter.addEventListener('change', onButtonChange);
-form.addEventListener('submit', onSubmitClick);
-function onSubmitClick(event) {
-  let search = form.filmName.value;
-  event.preventDefault();
-  instance.reset();
-  page = 1;
-  filmList.innerHTML = '';
-  URL = `https://api.themoviedb.org/3/search/movie?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&query=${search}&page=`;
-  mainPage(URL, page);
-  setTimeout(() => {
-    if (allResults !== 0) {
-      Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`, msgOptionsNotiflix);
-    } else Notiflix.Notify.failure("Sorry, we couldn't find anything", msgOptionsNotiflix);
-  }, 300);
-}
-
-mainPage(URL, page);
-
-
-const Pagination = require('tui-pagination');
-const containerPag = document.getElementById('tui-pagination-container');
+// -------PAGINATION
 const instance = new Pagination(containerPag, {
-        totalItems: 500,
-        itemsPerPage: 20,
-        visiblePages: 5
-    } )
-
-const tuiCont = document.querySelector('.tui-pagination');
+  totalItems: 120,
+  itemsPerPage: 20,
+  visiblePages: 5,
+});
 tuiCont.addEventListener('click', onTuiContClick);
 function onTuiContClick() {
   page = instance.getCurrentPage();
@@ -157,4 +133,24 @@ function onTuiContClick() {
 
   mainPage(URL, page);
 }
+// -------------end-pagination
 
+filter.addEventListener('change', onButtonChange);
+form.addEventListener('submit', onSubmitClick);
+function onSubmitClick(event) {
+  instance.reset();
+  let search = form.filmName.value;
+
+  event.preventDefault();
+
+  page = 1;
+  filmList.innerHTML = '';
+  URL = `https://api.themoviedb.org/3/search/movie?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&query=${search}&page=`;
+  mainPage(URL, page);
+  setTimeout(() => {
+    if (allResults !== 0) {
+      Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`);
+    } else Notiflix.Notify.failure("Sorry, we couldn't find anything");
+  }, 400);
+}
+mainPage(URL, page);
