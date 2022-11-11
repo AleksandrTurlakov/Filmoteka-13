@@ -5,7 +5,7 @@ import Pagination from 'tui-pagination';
 const containerPag = document.getElementById('tui-pagination-container');
 const tuiCont = document.querySelector('.tui-pagination');
 const filter = document.querySelector('.filter');
-const container = document.querySelector('.container');
+const radioButton = document.querySelectorAll('.filter-input');
 const filmList = document.querySelector('.film-list');
 const form = document.querySelector('.search__form');
 let URL = '';
@@ -143,11 +143,15 @@ function onTuiContClick() {
 filter.addEventListener('change', onButtonChange);
 form.addEventListener('submit', onSubmitClick);
 function onSubmitClick(event) {
+  event.preventDefault();
   instance.reset();
   let search = form.filmName.value;
-  
-  event.preventDefault();
-  
+  radioButton.forEach(element => {
+    if (element.checked === true) {
+      element.checked=false
+    }
+  })
+    
   page = 1;
   filmList.innerHTML = '';
   URL = `https://api.themoviedb.org/3/search/movie?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&query=${search}&page=`;
@@ -156,6 +160,6 @@ function onSubmitClick(event) {
     if (allResults !== 0) {
       Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`);
     } else Notiflix.Notify.failure("Sorry, we couldn't find anything");
-  }, 300);
+  }, 400);
 }
 mainPage(URL, page);
