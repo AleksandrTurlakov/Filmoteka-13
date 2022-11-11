@@ -39,23 +39,20 @@ const genres = {
 
 let allResults = null;
 
- function mainPage(URL, page) {
+function mainPage(URL, page) {
   getDataApi(URL + page).then(response => buildElements(response));
 }
 
 function buildElements(response) {
-  
   allResults = response.total_results;
   if (allResults < 21) {
-    instance.reset()
+    instance.reset();
     tuiCont.classList.add('visually-hidden');
-  
-  } else { 
+  } else {
     instance.setTotalItems(allResults);
-    tuiCont.classList.remove('visually-hidden')
-    
+    tuiCont.classList.remove('visually-hidden');
   }
-  
+
   response.results.map(item => {
     function auditGanres() {
       if (item.genre_ids.length < 3) {
@@ -68,7 +65,7 @@ function buildElements(response) {
           .join(', ') + ', others'
       );
     }
-    
+
     function auditYear() {
       if (!item.release_date) {
         return 'unknown year';
@@ -87,14 +84,14 @@ function buildElements(response) {
     const src = srcAudit();
     const id = item.id;
 
-    const data = { name, year, genr, vote, src,id };
+    const data = { name, year, genr, vote, src, id };
 
     filmList.insertAdjacentHTML('beforeend', card(data));
   });
 }
 
 function onButtonChange(event) {
-   instance.reset();
+  instance.reset();
   page = 1;
   switch (event.target.value) {
     case 'top_for_week':
@@ -123,14 +120,12 @@ function onButtonChange(event) {
       break;
   }
 }
- // -------PAGINATION
-const instance = new Pagination(containerPag
-  , { 
-    totalItems: 120,
-        itemsPerPage: 20,
-        visiblePages: 5
-}
-)
+// -------PAGINATION
+const instance = new Pagination(containerPag, {
+  totalItems: 120,
+  itemsPerPage: 20,
+  visiblePages: 5,
+});
 tuiCont.addEventListener('click', onTuiContClick);
 function onTuiContClick() {
   page = instance.getCurrentPage();
@@ -151,7 +146,6 @@ function onSubmitClick(event) {
       element.checked=false
     }
   })
-    
   page = 1;
   filmList.innerHTML = '';
   URL = `https://api.themoviedb.org/3/search/movie?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&query=${search}&page=`;

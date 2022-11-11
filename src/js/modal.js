@@ -2,11 +2,12 @@ import { getDataApi } from './getDataApi';
 import card from './templates/card.hbs';
 import modalWindow from './templates/modalWindow.hbs';
 
+import { handleClick } from './addWatchedQue';
+
 const filmListModal = document.querySelector('.film-list');
 const filmItemModal = document.querySelector('.film-item');
 const modal = document.querySelector('.backdrop');
 const body = document.querySelector('body');
-const closeModal = document.querySelector('.button-close');
 
 let movie_id = '';
 
@@ -15,7 +16,7 @@ function handleCardClick(evt) {
   if (evt.target === evt.currentTarget) return;
   modal.innerHTML = '';
   const parent = evt.target.closest('li');
- 
+
   movie_id = parent.dataset.id;
 
   const URL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=7bfeb33324f72574136d1cd14ae769b5`;
@@ -41,7 +42,6 @@ function handleCardClick(evt) {
     const popularity = response.popularity;
     const original_title = response.original_title;
     const overview = response.overview;
-  
     const data = {
       src,
       name,
@@ -51,36 +51,54 @@ function handleCardClick(evt) {
       original_title,
       genr,
       overview,
+      id: response.id,
     };
-  
+
     modal.insertAdjacentHTML('beforeend', modalWindow(data));
+
+    const QUEUE_SELECTOR = document.querySelector('.modal__queueButton');
+    const WATCHED_SELECTOR = document.querySelector('.modal__watchedButton');
+
+    [QUEUE_SELECTOR, WATCHED_SELECTOR].map(actionButton => {
+      actionButton.addEventListener('click', e => handleClick(e, data));
+    });
   }
 
-  modal.addEventListener('click', openModal);
-  function openModal() {
+  modal.addEventListener('click', openModalWindow);
+  function openModalWindow() {
     modal.classList.remove('is-hidden');
     body.classList.add('no-scroll');
-    modal.removeEventListener('click', openModal);
+    modal.removeEventListener('click', openModalWindow);
   }
 
-  openModal();
+  openModalWindow();
 
-  function closeModal() {
-    if (!modal.classList.contains('is-hidden')) {
-      modal.classList.toggle('is-hidden');
-      body.classList.toggle('no-scroll');
-      closeModal.addEventListener('click', closeModal);
+  modal.addEventListener('click', closeModalWindow);
+  function closeModalWindow(e) {
+    if (e.target === e.currentTarget) {
+      modal.classList.add('is-hidden');
+      body.classList.remove('no-scroll');
     }
-    closeModal();
   }
+  // const closeModal = document.querySelector('.button-close');
+  // console.log(closeModal);
+
+  // closeModal.addEventListener('click', closeModalWindow);
+
+  // function closeModalWindow() {
+  //   // if (!modal.classList.contains('is-hidden'))
+  //   modal.classList.add('is-hidden');
+  //   body.classList.remove('no-scroll');
+  // }
 
   document.addEventListener('keydown', escapeClose);
   function escapeClose(event) {
     if (event.code !== 'Escape') return;
+    console.log(event.code);
     if (event.code === 'Escape') {
       modal.classList.add('is-hidden');
       body.classList.remove('no-scroll');
-      // document.removeEventListener('keydown', escapeClose);
+      document.removeEventListener('keydown', escapeClose);
     }
   }
 }

@@ -1,5 +1,5 @@
 export default function renderMarkupMovieCard({ results }, show_delete) {
-  const gallery = document.querySelector('.film-list');
+  const gallery = document.querySelector('.library__list');
   const markup = results
     .map(
       ({
