@@ -1,7 +1,8 @@
-// .scroll-up {
-//   // visibility: hidden;
-//   overflow: hidden;
-// }
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 .backdrop-footer {
   position: fixed;
   display: flex;
@@ -18,7 +19,7 @@
   opacity: 1;
   z-index: 300;
   padding: 20px;
-  transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 350ms $transition-timing-function;
 
   overflow: hidden;
   overflow-y: auto;
@@ -30,11 +31,7 @@
     pointer-events: none;
   }
 }
-ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
+
 .modal-box {
   max-height: 100%;
   width: 300px;
@@ -58,6 +55,14 @@ ul {
     width: 982px;
   }
   transition: transform 300ms $transition-timing-function;
+}
+.modal-title {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: $highlight_color;
+  font-size: 20px;
+  font-weight: 1400;
 }
 
 .grid {
@@ -100,13 +105,6 @@ ul {
   }
 }
 
-.modal-title {
-  margin-top: 30px;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #ff6b01;
-}
-
 .footer-modal-img {
   width: 280px;
   height: 280px;
@@ -126,18 +124,16 @@ ul {
 
 //developer@name
 .grid-box {
-  background-color: #ff6b01;
+  background-color: $highlight_color;
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
 .modal-box__btn {
-  fill: #ff6b01;
+  fill: $highlight_color;
   position: absolute;
   top: 15px;
   right: 15px;
-  // border-radius: 50%;
-
   border: none;
   background-color: #fff;
   display: flex;
@@ -153,7 +149,6 @@ ul {
   &:hover,
   &:focus {
     fill: #000000;
-    // border-color: #ff6b01;
   }
 }
 
@@ -166,7 +161,6 @@ ul {
   font-size: 14px;
   line-height: 1.14;
   display: flex;
-  // align-items: center;
   border: transparent;
   background-color: transparent;
   position: relative;
@@ -183,12 +177,12 @@ ul {
 
   &:hover,
   &:focus {
-    color: #ff6b01;
+    color: $highlight_color;
     transform: scale(1.04);
   }
 
   &:hover::after,
   &:focus::after {
-    background-color: #ff6b01;
+    background-color: $highlight_color;
   }
 }
