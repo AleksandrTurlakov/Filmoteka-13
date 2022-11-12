@@ -1,4 +1,5 @@
 
+// Aleksandr Velychkovskiy
 const refs = {
   openModalFooter: document.querySelector('[data-modal-open]'),
   closeModalFooter: document.querySelector('[data-modal-close]'),
