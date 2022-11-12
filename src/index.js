@@ -6,3 +6,4 @@ import { scrollBtn } from './js/scrollBtn';
 import { loader } from './js/loader';
 import { addWatchedQue } from './js/addWatchedQue';
 import './js/footer-modal.js';
+
