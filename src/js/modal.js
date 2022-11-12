@@ -80,16 +80,16 @@ function handleCardClick(evt) {
       body.classList.remove('no-scroll');
     }
   }
-  // const closeModal = document.querySelector('.button-close');
-  // console.log(closeModal);
 
-  // closeModal.addEventListener('click', closeModalWindow);
+  if (modal.classList.contains('is-hidden')) {
+    const closeModal = document.querySelector('.button-close');
+    closeModal.addEventListener('click', closeModalWindow);
+  }
 
-  // function closeModalWindow() {
-  //   // if (!modal.classList.contains('is-hidden'))
-  //   modal.classList.add('is-hidden');
-  //   body.classList.remove('no-scroll');
-  // }
+  function closeModalWindow() {
+    modal.classList.add('is-hidden');
+    body.classList.remove('no-scroll');
+  }
 
   document.addEventListener('keydown', escapeClose);
   function escapeClose(event) {

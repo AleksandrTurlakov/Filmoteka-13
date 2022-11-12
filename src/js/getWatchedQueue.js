@@ -1,5 +1,7 @@
-import cardEl from './templates/card.hbs';
+
 // import myLibraryPage from './myLibraryPage.js';
+
+import cardEl from '../js/templates/card.hbs';
 
 const libraryUl = document.querySelector('.library__list');
 const watchedBtn = document.querySelector('#watched-btn');
