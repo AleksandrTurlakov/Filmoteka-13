@@ -1,9 +1,10 @@
+
 .modal {
   position: absolute;
   max-width: 280px;
-  height: 940px;
+  height: 850px;
   font-size: 12px;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
   background-color: #ffffff;
@@ -180,7 +181,6 @@
 }
 
 .button-close {
-  z-index: 50;
   display: flex;
   margin-left: auto;
 
@@ -189,6 +189,7 @@
   font: inherit;
   color: inherit;
   background-color: transparent;
+  background-image: url('/src/img/icons/close-icon-black.svg');
   cursor: pointer;
   position: absolute;
   right: 8px;
@@ -196,11 +197,12 @@
 
   &__icon {
     fill: #000000;
+    border-radius: 50%;
     z-index: 50;
   }
 
   &:hover &__icon {
-    fill: #ff6b01;
+    background-image: url('/src/img/icons/close-icon-orange.svg');
   }
 }
 
