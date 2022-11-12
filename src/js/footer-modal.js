@@ -22,6 +22,7 @@ function onOpenFooterModal() {
 function onCloseFooterModal() {
   refs.modalFooter.classList.add('is-hidden-footer');
   window.removeEventListener('keydown', onTargetKeydownFooter);
+  refs.scrollUp.classList.add('scroll-up--active');//active scroll first-page
   document.body.style.overflow = "";
 }
 
