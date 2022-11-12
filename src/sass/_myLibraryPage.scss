@@ -14,16 +14,28 @@
 }
 
 .library__list {
-  width: 600px;
-  height: 600px;
-  margin: auto;
+  min-height: 600px;
+  margin: 0;
+  margin-bottom: 30px;
+  display: grid;
+  row-gap: 20px;
+  justify-content: space-around;
+  @include tablet {
+    gap: 32px;
+    grid-template-columns: 336 336;
+  }
+  @include desktop {
+    gap: 15px;
+    row-gap: 32px;
+    grid-template-columns: 395 395 395;
+  }
 }
 
 .library-bg__image {
   width: 320px;
   height: 320px;
   overflow: visible;
-  background: url(../images/myLibrary.png) no-repeat center center;
+  background: url(../img/myLibrary.png) no-repeat center center;
   background-size: contain;
   @media screen and (min-width: $tablet) {
     width: 600px;
