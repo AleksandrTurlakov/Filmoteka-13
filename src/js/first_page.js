@@ -143,16 +143,16 @@ function onSubmitClick(event) {
   let search = form.filmName.value;
   radioButton.forEach(element => {
     if (element.checked === true) {
-      element.checked=false
+      element.checked = false;
     }
-  })
+  });
   page = 1;
   filmList.innerHTML = '';
   URL = `https://api.themoviedb.org/3/search/movie?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&query=${search}&page=`;
   mainPage(URL, page);
   setTimeout(() => {
     if (allResults !== 0) {
-      Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`);
+      Notiflix.Notify.success(`Great, we found ${allResults}  results`);
     } else Notiflix.Notify.failure("Sorry, we couldn't find anything");
   }, 400);
 }
