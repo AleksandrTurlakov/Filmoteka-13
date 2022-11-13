@@ -1,18 +1,3 @@
-.library {
-  height: auto;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  display: flex;
-  justify-content: center;
-}
-.library-bg {
-  height: auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .library__list {
   min-height: 600px;
   margin: 0;
@@ -21,6 +6,7 @@
   row-gap: 20px;
   justify-content: space-around;
   @include tablet {
+    margin-top: 40px;
     gap: 32px;
     grid-template-columns: 336 336;
   }
@@ -31,24 +17,33 @@
   }
 }
 
-.library-bg__image {
-  width: 320px;
-  height: 320px;
-  overflow: visible;
-  background: url(../img/myLibrary.png) no-repeat center center;
-  background-size: contain;
-  @media screen and (min-width: $tablet) {
-    width: 600px;
-    height: 600px;
-  }
+.library {
+  display: flex;
+  height: auto;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  justify-content: center;
 }
 
-.library-bg__message {
-  font-style: 700;
-  font-size: 22px;
-  line-height: 1.2;
-  font-style: italic;
-  color: var(--accent-color);
-  margin-top: 10px;
-  text-transform: uppercase;
+.library-bg__image {
+  justify-content: center;
+  width: 320px;
+  height: 200px;
+  overflow: visible;
+
+  background: url(../images/chooseLibrary.jpeg) no-repeat center center;
+
+  background-size: contain;
+  @media screen and (min-width: $mobile) {
+    width: 450px;
+    height: 300px;
+  }
+  @media screen and (min-width: $tablet) {
+    width: 800px;
+    height: 500px;
+  }
+  @media screen and (min-width: $desktop) {
+    width: 900px;
+    height: 600px;
+  }
 }
