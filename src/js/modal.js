@@ -6,7 +6,7 @@ import { handleClick } from './addWatchedQue';
 
 const filmListModal = document.querySelector('.film-list');
 const filmItemModal = document.querySelector('.film-item');
-const modal = document.querySelector('.backdrop');
+const backdropModal = document.querySelector('.backdrop');
 const body = document.querySelector('body');
 
 let movie_id = '';
@@ -14,7 +14,7 @@ let movie_id = '';
 filmListModal.addEventListener('click', handleCardClick);
 function handleCardClick(evt) {
   if (evt.target === evt.currentTarget) return;
-  modal.innerHTML = '';
+  backdropModal.innerHTML = '';
   const parent = evt.target.closest('li');
 
   movie_id = parent.dataset.id;
@@ -54,7 +54,9 @@ function handleCardClick(evt) {
       id: response.id,
     };
 
-    modal.insertAdjacentHTML('beforeend', modalWindow(data));
+    backdropModal.insertAdjacentHTML('beforeend', modalWindow(data));
+
+    openModalWindow();
 
     const QUEUE_SELECTOR = document.querySelector('.modal__queueButton');
     const WATCHED_SELECTOR = document.querySelector('.modal__watchedButton');
@@ -64,40 +66,49 @@ function handleCardClick(evt) {
     });
   }
 
-  modal.addEventListener('click', openModalWindow);
+  const scrollUp = document.querySelector('.scroll-up');
+
   function openModalWindow() {
-    modal.classList.remove('is-hidden');
+    backdropModal.classList.remove('is-hidden');
     body.classList.add('no-scroll');
-    modal.removeEventListener('click', openModalWindow);
+    scrollUp.classList.remove('scroll-up--active');
+    backdropModal.removeEventListener('click', openModalWindow);
+    addListenersOnModalWindow();
   }
 
-  openModalWindow();
+  function addListenersOnModalWindow() {
+    const closeModal = document.querySelector('.button-close');
+    console.log(closeModal);
+    closeModal.addEventListener('click', onBtnCloseModalWindow);
+    backdropModal.addEventListener('click', closeModalWindow);
+  }
 
-  modal.addEventListener('click', closeModalWindow);
   function closeModalWindow(e) {
+    console.log(e.target);
     if (e.target === e.currentTarget) {
-      modal.classList.add('is-hidden');
+      backdropModal.classList.add('is-hidden');
       body.classList.remove('no-scroll');
+      scrollUp.classList.add('scroll-up--active');
+      // closeModal.removeEventListener('click', onBtnCloseModalWindow);
+      backdropModal.removeEventListener('click', closeModalWindow);
     }
   }
 
-  if (modal.classList.contains('is-hidden')) {
-    const closeModal = document.querySelector('.button-close');
-    closeModal.addEventListener('click', closeModalWindow);
-  }
-
-  function closeModalWindow() {
-    modal.classList.add('is-hidden');
+  function onBtnCloseModalWindow() {
+    backdropModal.classList.add('is-hidden');
     body.classList.remove('no-scroll');
+    scrollUp.classList.add('scroll-up--active');
+    // closeModal.removeEventListener('click', onBtnCloseModalWindow);
+    backdropModal.removeEventListener('click', closeModalWindow);
   }
 
   document.addEventListener('keydown', escapeClose);
   function escapeClose(event) {
     if (event.code !== 'Escape') return;
-    console.log(event.code);
     if (event.code === 'Escape') {
-      modal.classList.add('is-hidden');
+      backdropModal.classList.add('is-hidden');
       body.classList.remove('no-scroll');
+      scrollUp.classList.add('scroll-up--active');
       document.removeEventListener('keydown', escapeClose);
     }
   }

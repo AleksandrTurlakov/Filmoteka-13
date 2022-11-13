@@ -30,7 +30,9 @@
   width: 320px;
   height: 200px;
   overflow: visible;
+
   background: url(../images/chooseLibrary.jpeg) no-repeat center center;
+
   background-size: contain;
   @media screen and (min-width: $mobile) {
     width: 450px;
