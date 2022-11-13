@@ -112,17 +112,15 @@
   &__description {
     padding-bottom: 40px;
     line-height: 1.66;
-    max-height: 100px;
     overflow: auto;
     margin-bottom: 40px;
 
     @media screen and (min-width: 768px) {
-      max-height: 150px;
+      max-height: 80px;
     }
-
-    @media screen and (min-width: 1280px) {
-      max-height: 240px;
-    }
+         @media screen and (min-width: 1280px) {
+           max-height: 240px;
+         }
 
   }
 
@@ -134,7 +132,12 @@
     justify-content: space-evenly;
     right: 10%;
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
+    display: flex;
+
+      @media screen and (min-width: 1280px) {
+        bottom: 20px;
+        }
   }
 
   &__watchedButton {
@@ -194,11 +197,6 @@
     }
   }
 
-  &__buttons {
-    display: flex;
-    position: absolute;
-    bottom: 20px;
-  }
 }
 
 .button-close {
