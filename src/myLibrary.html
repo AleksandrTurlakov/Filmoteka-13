@@ -16,7 +16,14 @@
   <body>
     <!-- <span class="loader"></span> -->
     <include src="./partials/header-myLibrary.html"></include>
-    <ul class="library__list"></ul>
+    <div class="container">
+      <div class="backdropLibrary is-hidden"></div>
+      <div class="library">
+        <div class="library-bg__image"></div>
+      </div>
+      <ul class="library__list list visually-hidden"></ul>
+    </div>
+    <include src="./partials/footer-modal.html"></include>
     <include src="./partials/footer.html"></include>
     <div class="scroll-up">
       <svg class="scroll-up__svg" viewBox="-2 -2 52 52">
@@ -28,6 +35,7 @@
         />
       </svg>
     </div>
+    <script src="./js/footer-modal.js" type="module"></script>
     <script src="myLibrary.js" type="module"></script>
   </body>
 </html>
