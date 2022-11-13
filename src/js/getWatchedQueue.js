@@ -9,7 +9,7 @@ const libraryBack = document.querySelector('.library');
 
 const watchedBtn = document.querySelector('#watched-btn');
 const queueBtn = document.querySelector('#queue-btn');
-const deleteBtn = document.querySelector('#delete-btn');
+const deleteBtn = document.querySelector('.library__btn-list-delete');
 const body = document.querySelector('body');
 const backdropLibrary = document.querySelector('.backdropLibrary');
 
@@ -27,7 +27,7 @@ function onWatchedClick() {
   watchedBtn.classList.toggle('activeBtn');
   queueBtn.classList.remove('activeBtn');
 
-  watched.forEach(index => console.log(index));
+  // watched.forEach(index => console.log(index));
 }
 
 function onQueueClick() {
@@ -44,6 +44,14 @@ function onQueueClick() {
 let movie_id = '';
 
 libraryUl.addEventListener('click', handleCardClick);
+// deleteBtn.addEventListener('click', onDeleteClick);
+
+// function onDeleteClick(evt) {
+//   if (evt.target.closest('.btn-list-delete')?.id === 'close') {
+//     console.log(evt.target);
+//   }
+// }
+
 function handleCardClick(evt) {
   if (evt.target === evt.currentTarget) return;
   backdropLibrary.innerHTML = '';
@@ -84,66 +92,16 @@ function handleCardClick(evt) {
       id: response.id,
     };
     backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
-
-    openModalWindow();
   }
 
-  const scrollUp = document.querySelector('.scroll-up');
+  // =================== DELETE
 
-  function openModalWindow() {
-    backdropLibrary.classList.remove('is-hidden');
-    body.classList.add('no-scroll');
-    scrollUp.classList.remove('scroll-up--active');
-    backdropLibrary.removeEventListener('click', openModalWindow);
-    addListenersOnModalWindow();
+  deleteBtn.addEventListener('click', onDeleteClick);
+
+  function onDeleteClick(event) {
+    if (evt.target === evt.currentTarget) return;
+    backdropLibrary.innerHTML = '';
+    const parent = evt.target.closest('li');
+    movie_id = parent.dataset.id;
   }
-
-  function addListenersOnModalWindow() {
-    const closeModal = document.querySelector('.button-close');
-    closeModal.addEventListener('click', onBtnCloseModalWindow);
-    backdropLibrary.addEventListener('click', closeModalWindow);
-  }
-
-  function closeModalWindow(e) {
-    console.log(e.target);
-    console.log(e.currentTarget);
-
-    if (e.target === e.currentTarget) {
-      backdropLibrary.classList.add('is-hidden');
-      body.classList.remove('no-scroll');
-      scrollUp.classList.add('scroll-up--active');
-      // closeModal.removeEventListener('click', onBtnCloseModalWindow);
-      backdropLibrary.removeEventListener('click', closeModalWindow);
-    }
-  }
-
-  function onBtnCloseModalWindow() {
-    backdropLibrary.classList.add('is-hidden');
-    body.classList.remove('no-scroll');
-    scrollUp.classList.add('scroll-up--active');
-    // closeModal.removeEventListener('click', onBtnCloseModalWindow);
-    backdropLibrary.removeEventListener('click', closeModalWindow);
-  }
-
-  document.addEventListener('keydown', escapeClose);
-  function escapeClose(event) {
-    if (event.code !== 'Escape') return;
-    if (event.code === 'Escape') {
-      backdropLibrary.classList.add('is-hidden');
-      body.classList.remove('no-scroll');
-      scrollUp.classList.add('scroll-up--active');
-      document.removeEventListener('keydown', escapeClose);
-    }
-  }
-}
-
-// =================== DELETE
-
-deleteBtn.addEventListener('click', onDeleteClick);
-
-function onDeleteClick(event) {
-  if (evt.target === evt.currentTarget) return;
-  backdropLibrary.innerHTML = '';
-  const parent = evt.target.closest('li');
-  movie_id = parent.dataset.id;
 }
