@@ -1,3 +1,4 @@
+
 // Aleksandr Velychkovskiy
 const refs = {
   openModalFooter: document.querySelector('[data-modal-open]'),

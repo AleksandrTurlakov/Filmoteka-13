@@ -92,16 +92,17 @@ function handleCardClick(evt) {
       id: response.id,
     };
     backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
-  }
 
-  // =================== DELETE
-
-  deleteBtn.addEventListener('click', onDeleteClick);
-
-  function onDeleteClick(event) {
-    if (evt.target === evt.currentTarget) return;
-    backdropLibrary.innerHTML = '';
-    const parent = evt.target.closest('li');
-    movie_id = parent.dataset.id;
-  }
 }
+
+// =================== DELETE
+
+deleteBtn.addEventListener('click', onDeleteClick);
+
+function onDeleteClick(event) {
+  if (evt.target === evt.currentTarget) return;
+  backdropLibrary.innerHTML = '';
+  const parent = evt.target.closest('li');
+  movie_id = parent.dataset.id;
+}
+

@@ -143,9 +143,9 @@ function onSubmitClick(event) {
   let search = form.filmName.value;
   radioButton.forEach(element => {
     if (element.checked === true) {
-      element.checked=false
+      element.checked = false;
     }
-  })
+  });
   page = 1;
   filmList.innerHTML = '';
   URL = `https://api.themoviedb.org/3/search/movie?api_key=7bfeb33324f72574136d1cd14ae769b5&language=en-US&query=${search}&page=`;
