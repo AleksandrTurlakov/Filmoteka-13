@@ -24,7 +24,7 @@
   @media screen and (min-width: 1280px) {
     min-width: 806px;
     height: 558px;
-    padding: 40px 12px 40px 12px;
+    padding: 40px 30px 40px 12px;
   }
 
   &__filmBox {
@@ -159,12 +159,10 @@
 
     @media screen and (min-width: 768px) {
       width: 125px;
-      height: 44px;
     }
 
     @media screen and (min-width: 1280px) {
-      width: 125px;
-      height: 44px;
+      width: 136px;
       margin-left: 8px;
       margin-right: 15px;
     }
@@ -184,6 +182,15 @@
       cursor: pointer;
       color: white;
       border: none;
+    }
+
+    @media screen and (min-width: 768px) {
+      width: 125px;
+    }
+
+    @media screen and (min-width: 1280px) {
+      width: 136px;
+
     }
   }
 
@@ -218,7 +225,7 @@
   }
 }
 
-.backdrop .backdropLibrary {
+.backdrop {
   position: fixed;
   display: flex;
   margin: 0 auto;
