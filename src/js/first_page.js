@@ -152,8 +152,154 @@ function onSubmitClick(event) {
   mainPage(URL, page);
   setTimeout(() => {
     if (allResults !== 0) {
-      Notiflix.Notify.success(`Great, Great, we found ${allResults}  results`);
+      Notiflix.Notify.success(`Great, we found ${allResults}  results`);
     } else Notiflix.Notify.failure("Sorry, we couldn't find anything");
   }, 400);
 }
 mainPage(URL, page);
+
+// -----------BURGER and MODALS-----
+const wrapperBurg = document.querySelector('#wrapper-burger');
+const closeBurger = document.querySelector('.close-btn-burger');
+const openBurger = document.querySelector('.burger-btn');
+closeBurger.addEventListener('click', (e) => {
+   document.querySelector('body').style.overflow = 'visible';
+  wrapperBurg.classList.replace('wrapper-burger-visible', 'wrapper-burger');
+});
+openBurger.addEventListener('click', (e) => {
+   document.querySelector('body').style.overflow = 'hidden';
+  wrapperBurg.classList.replace('wrapper-burger', 'wrapper-burger-visible')
+});
+
+const openRegModal = document.querySelectorAll('.wrapper-reg-btn');
+const burgerBtn = document.querySelector('.burger-btn');
+const library = document.querySelector('.link--oreol.lib');
+const closeRegForm = document.querySelectorAll('.close-reg-modal-btn');
+const regOverlay = document.querySelector('.register-overlay');
+const formReg = document.querySelector('.register-form');
+const formLogin = document.querySelector('.sign-in-form');
+const wrapTablet=document.querySelector('.wrapper-reg.tablet')
+
+
+regOverlay.addEventListener('click', (e) => {
+  if (e.target === regOverlay) {
+    regOverlay.classList.add('hidden');
+    document.querySelector(`[data-target="register"]`).classList.add('hidden');
+    document.querySelector(`[data-target="sign-in"]`).classList.add('hidden');
+ }
+})
+
+closeRegForm.forEach((el) => {
+  el.addEventListener('click', (e) => {
+   
+    regOverlay.classList.add('hidden');
+     wrapperBurg.classList.replace('wrapper-burger-visible', 'wrapper-burger')
+    let btnClose = (e.currentTarget.getAttribute('data-close'));
+     document.querySelector('body').style.overflow = 'visible';
+    document.querySelector(`[data-target="${btnClose}"]`).classList.add('hidden');
+  } )
+})
+openRegModal.forEach((el) => {
+  el.addEventListener('click', (e) => {
+    
+    let curClick = e.currentTarget.getAttribute('data-open');
+    regOverlay.classList.remove('hidden');
+    document.querySelector('body').style.overflow = 'hidden';
+    document.querySelector(`[data-target="${curClick}"]`).classList.remove('hidden');
+  })
+});
+
+
+
+
+// ---------Register
+
+import { getAuth } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+const firebaseConfig = {
+  apiKey: "AIzaSyBI-TvYqO8RaA3wuEshFAJHe1ffSTt9kMM",
+  authDomain: "filmoteka-165d3.firebaseapp.com",
+  projectId: "filmoteka-165d3",
+  storageBucket: "filmoteka-165d3.appspot.com",
+  messagingSenderId: "1065252049947",
+  appId: "1:1065252049947:web:ca41952187152e47e5d4be"
+};
+const app = initializeApp(firebaseConfig);
+
+
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
+
+const auth = getAuth();
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+
+    const uid = user.uid;
+    document.querySelector('body').style.position = 'static';
+      regOverlay.classList.add('hidden');
+      document.querySelector(`[data-target="sign-in"]`).classList.add('hidden');
+      library.classList.remove('hidden');
+      burgerBtn.classList.add('hidden');
+    wrapTablet.classList.add('hidden');
+   
+  } else {
+   return
+  }
+});
+
+
+function register(event) {
+  event.preventDefault()
+   const {
+    elements: { email, password }
+  } = event.currentTarget;
+  const auth = getAuth(app);
+ 
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then((userCredential) => {
+      const user = userCredential.user;
+     wrapperBurg.classList.replace('wrapper-burger-visible', 'wrapper-burger')
+      document.querySelector('body').style.position = 'static';
+      regOverlay.classList.add('hidden');
+      document.querySelector(`[data-target="sign-in"]`).classList.add('hidden');
+      library.classList.remove('hidden');
+      burgerBtn.classList.add('hidden');
+      wrapTablet.classList.add('hidden');
+      Notiflix.Notify.success('Congratulations on your registration!')
+
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      Notiflix.Notify.failure(errorMessage);
+    });
+}
+function singnIn(event) {
+    event.preventDefault()
+   const {
+    elements: { email, password }
+  } = event.currentTarget;
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then((userCredential) => {
+       const user = userCredential.user;
+           wrapperBurg.classList.replace('wrapper-burger-visible', 'wrapper-burger')
+      document.querySelector('body').style.position = 'static';
+      regOverlay.classList.add('hidden');
+      document.querySelector(`[data-target="sign-in"]`).classList.add('hidden');
+      library.classList.remove('hidden');
+      burgerBtn.classList.add('hidden');
+     
+      wrapTablet.classList.add('hidden');
+   Notiflix.Notify.success('Congratulations, you are logged in!')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // console.log(errorMessage);
+      Notiflix.Notify.failure(errorMessage);
+    });
+}
+
+formReg.addEventListener('submit', register)
+formLogin.addEventListener('submit', singnIn);

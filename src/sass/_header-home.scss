@@ -40,9 +40,11 @@
 }
 
 .border {
-  width: 394px;
   border-bottom: 1px solid #ffffff;
   margin: 0 auto;
+  @include tablet {
+    width: 394px;
+  }
 }
 
 .search__form {

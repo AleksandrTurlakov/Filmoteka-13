@@ -1,9 +1,13 @@
+// Aleksandr Velychkovskiy
 const refs = {
   openModalFooter: document.querySelector('[data-modal-open]'),
   closeModalFooter: document.querySelector('[data-modal-close]'),
   modalFooter: document.querySelector('[data-modal]'),
   backdropFooter: document.querySelector('.backdrop-footer'),
+  scrollUp: document.querySelector('.scroll-up'),//disable scroll first-page
 };
+
+
 refs.openModalFooter.addEventListener('click', onOpenFooterModal);
 refs.closeModalFooter.addEventListener('click', onCloseFooterModal);
 refs.backdropFooter.addEventListener('click', onBackdropCloseFooterModal);
@@ -11,12 +15,14 @@ refs.backdropFooter.addEventListener('click', onBackdropCloseFooterModal);
 function onOpenFooterModal() {
   refs.modalFooter.classList.remove('is-hidden-footer');
   window.addEventListener('keydown', onTargetKeydownFooter);
+  refs.scrollUp.classList.remove('scroll-up--active'); //disable scroll first-page
   document.body.style.overflow = "hidden"; 
 }
 
 function onCloseFooterModal() {
   refs.modalFooter.classList.add('is-hidden-footer');
   window.removeEventListener('keydown', onTargetKeydownFooter);
+  refs.scrollUp.classList.add('scroll-up--active');//active scroll first-page
   document.body.style.overflow = "";
 }
 

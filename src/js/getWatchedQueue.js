@@ -1,67 +1,149 @@
-// import { buildElements } from './first_page.js';
 // import myLibraryPage from './myLibraryPage.js';
-// import { handleClick } from './addWatchedQue.js';
 
-const library = document.querySelector('.library__list');
-// const watchedBtn = document.getElementById('watched-btn');
-// const queueBtn = document.getElementById('queue-btn');
+import cardEl from '../js/templates/libraryCard.hbs';
+import { getDataApi } from './getDataApi';
+import modalWindow from './templates/modalWindow.hbs';
 
-// const localStorageWatched = Watched => {};
-// console.log(localStorage.getItem((key = 'watched')));
+const libraryUl = document.querySelector('.library__list');
+const libraryBack = document.querySelector('.library');
 
-// function getWatched(key) {
-//   const LocalWatched = localStorage.getItem((key = 'watched'));
-//   // const watched = JSON.parse(LocalWatched);
-//   console.log(LocalWatched);
-// }
+const watchedBtn = document.querySelector('#watched-btn');
+const queueBtn = document.querySelector('#queue-btn');
+const deleteBtn = document.querySelector('#delete-btn');
+const body = document.querySelector('body');
+const backdropLibrary = document.querySelector('.backdropLibrary');
 
-// function getQueue(key) {
-//   const queue = localStorage.getItem((key = 'queue'));
-//   console.log(queue);
-// }
+const watched = JSON.parse(localStorage.getItem('watched'));
+const queue = JSON.parse(localStorage.getItem('queue'));
 
-let watchedList = JSON.parse(localStorage.getItem((key = 'watched')));
-console.log(watchedList);
+watchedBtn.addEventListener('click', onWatchedClick);
+queueBtn.addEventListener('click', onQueueClick);
 
-// window.addEventListener('storage', event => {
-//   console.log(event);
-// });
+function onWatchedClick() {
+  libraryUl.innerHTML = '';
+  libraryUl.insertAdjacentHTML('beforeend', watched.map(cardEl).join(''));
+  libraryUl.classList.remove('visually-hidden');
+  libraryBack.classList.add('visually-hidden');
+  watchedBtn.classList.toggle('activeBtn');
+  queueBtn.classList.remove('activeBtn');
 
-function buildLibrary(libs) {
-  allResults = libs.total_results;
+  watched.forEach(index => console.log(index));
+}
 
-  libs.results.map(item => {
-    function auditGanres() {
-      if (item.genre_ids.length < 3) {
-        return item.genre_ids.map(elem => genres[elem]).join(', ');
-      }
-      return (
-        item.genre_ids
-          .map(elem => genres[elem])
-          .slice(0, 2)
-          .join(', ') + ', others'
-      );
-    }
-    function auditYear() {
-      if (!item.release_date) {
-        return 'unknown year';
-      } else return item.release_date.slice(0, 4);
-    }
+function onQueueClick() {
+  libraryUl.innerHTML = '';
+  libraryUl.insertAdjacentHTML('beforeend', queue.map(cardEl).join(''));
+  libraryUl.classList.remove('visually-hidden');
+  libraryBack.classList.add('visually-hidden');
+  queueBtn.classList.toggle('activeBtn');
+  watchedBtn.classList.remove('activeBtn');
+}
+
+// ============  MODAL
+
+let movie_id = '';
+
+libraryUl.addEventListener('click', handleCardClick);
+function handleCardClick(evt) {
+  if (evt.target === evt.currentTarget) return;
+  backdropLibrary.innerHTML = '';
+  const parent = evt.target.closest('li');
+  movie_id = parent.dataset.id;
+  const URL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=7bfeb33324f72574136d1cd14ae769b5`;
+
+  function findFilm() {
+    getDataApi(URL).then(response => buildElements(response));
+  }
+  findFilm();
+
+  function buildElements(response) {
+    const genr = response.genres.map(genr => genr.name).join(', ');
+
     function srcAudit() {
-      if (!item.poster_path) {
+      if (!response.poster_path) {
         return `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`;
       }
-      return `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+      return `https://image.tmdb.org/t/p/w500${response.poster_path}`;
     }
-    const genr = auditGanres();
-    const vote = item.vote_average.toFixed(1);
-    const name = item.title.toUpperCase();
-    const year = auditYear();
     const src = srcAudit();
-    const id = item.id;
+    const name = response.title.toUpperCase();
+    const vote = response.vote_average.toFixed(1);
+    const vote_count = response.vote_count;
+    const popularity = response.popularity;
+    const original_title = response.original_title;
+    const overview = response.overview;
+    const data = {
+      src,
+      name,
+      vote,
+      vote_count,
+      popularity,
+      original_title,
+      genr,
+      overview,
+      id: response.id,
+    };
+    backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
 
-    const data = { name, year, genr, vote, src, id };
+    openModalWindow();
+  }
 
-    library.insertAdjacentHTML('beforeend', card(data));
-  });
+  const scrollUp = document.querySelector('.scroll-up');
+
+  function openModalWindow() {
+    backdropLibrary.classList.remove('is-hidden');
+    body.classList.add('no-scroll');
+    scrollUp.classList.remove('scroll-up--active');
+    backdropLibrary.removeEventListener('click', openModalWindow);
+    addListenersOnModalWindow();
+  }
+
+  function addListenersOnModalWindow() {
+    const closeModal = document.querySelector('.button-close');
+    closeModal.addEventListener('click', onBtnCloseModalWindow);
+    backdropLibrary.addEventListener('click', closeModalWindow);
+  }
+
+  function closeModalWindow(e) {
+    console.log(e.target);
+    console.log(e.currentTarget);
+
+    if (e.target === e.currentTarget) {
+      backdropLibrary.classList.add('is-hidden');
+      body.classList.remove('no-scroll');
+      scrollUp.classList.add('scroll-up--active');
+      // closeModal.removeEventListener('click', onBtnCloseModalWindow);
+      backdropLibrary.removeEventListener('click', closeModalWindow);
+    }
+  }
+
+  function onBtnCloseModalWindow() {
+    backdropLibrary.classList.add('is-hidden');
+    body.classList.remove('no-scroll');
+    scrollUp.classList.add('scroll-up--active');
+    // closeModal.removeEventListener('click', onBtnCloseModalWindow);
+    backdropLibrary.removeEventListener('click', closeModalWindow);
+  }
+
+  document.addEventListener('keydown', escapeClose);
+  function escapeClose(event) {
+    if (event.code !== 'Escape') return;
+    if (event.code === 'Escape') {
+      backdropLibrary.classList.add('is-hidden');
+      body.classList.remove('no-scroll');
+      scrollUp.classList.add('scroll-up--active');
+      document.removeEventListener('keydown', escapeClose);
+    }
+  }
+}
+
+// =================== DELETE
+
+deleteBtn.addEventListener('click', onDeleteClick);
+
+function onDeleteClick(event) {
+  if (evt.target === evt.currentTarget) return;
+  backdropLibrary.innerHTML = '';
+  const parent = evt.target.closest('li');
+  movie_id = parent.dataset.id;
 }

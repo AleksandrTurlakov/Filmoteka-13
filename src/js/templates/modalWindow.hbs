@@ -1,19 +1,11 @@
 <div class='modal' id={{id}}>
-  <button class='button-close' data-action="close-modal">
-    <svg class='button-close__icon' width='30' height='30'>
-      <use href='../../images/symbol-defs.svg#icon-close'></use>
-    </svg>
-  </button>
+    <button class='button-close' data-action="close-modal">
+      <svg class='button-close__icon' width='30' height='30'>
+      </svg>
+    </button>
   <div class='modal__poster'>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 
-    <picture>
-
-      <source srcset="{{src}}" media='(min-width: 1200px)' />
-      <source srcset="{{src}}" media='(min-width: 768px)' />
-      <source srcset="{{src}}" media='(min-width: 320px)' />
-
       <img class='modal__image' src="{{src}}"" alt="{{name}}"" width='275' />
-    </picture>
 
   </div>
 
@@ -42,7 +34,7 @@
     </table>
 
     <h3>About</h3>
-    <p class='modal__description'>{{overview}}</p>
+    <div class='modal__description'>{{overview}}</div>
 
     <div class='modal__buttons'>
       <button class='modal__watchedButton watched'>Add to watched</button>
