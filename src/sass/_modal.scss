@@ -2,7 +2,7 @@
   position: fixed;
   max-width: 280px;
   font-size: 12px;
-  top: 50%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
   background-color: #ffffff;
@@ -16,20 +16,19 @@
 
   @media screen and (min-width: 768px) {
     display: flex;
+    top: 50%;
     min-width: 704px;
-    max-height: 552px;
-    padding: 40px 72px 40px 36px;
+    padding: 40px 40px 30px 36px;
   }
 
   @media screen and (min-width: 1280px) {
     min-width: 806px;
-    height: 558px;
-    padding: 40px 30px 40px 12px;
+    padding: 40px 30px 20px 12px;
   }
 
   &__filmBox {
     @media screen and (min-width: 768px) {
-      max-width: 264px;
+      max-width: 280px;
     }
 
     @media screen and (min-width: 1280px) {
@@ -111,20 +110,17 @@
   }
 
   &__description {
-    max-height: 236px;
-    overflow: hidden;
+    padding-bottom: 40px;
+    line-height: 1.66;
+    overflow: auto;
+    margin-bottom: 40px;
 
     @media screen and (min-width: 768px) {
-      padding-bottom: 8px;
+      max-height: 80px;
     }
-
     @media screen and (min-width: 1280px) {
-      max-height: 160px;
-      overflow: hidden;
+      max-height: 240px;
     }
-
-    margin-bottom: 20px;
-    line-height: 1.66;
   }
 
   &__h3 {
@@ -132,10 +128,14 @@
   }
 
   &__buttons {
-    justify-content: space-between;
+    justify-content: space-evenly;
+    right: 10%;
+    position: absolute;
+    bottom: 30px;
+    display: flex;
 
     @media screen and (min-width: 1280px) {
-      justify-content: left;
+      bottom: 20px;
     }
   }
 
@@ -148,6 +148,7 @@
     height: 44px;
     text-transform: uppercase;
     font-weight: 500;
+    margin-right: 10px;
 
     &:hover {
       background-color: white;
@@ -159,6 +160,7 @@
 
     @media screen and (min-width: 768px) {
       width: 125px;
+      margin-right: 10px;
     }
 
     @media screen and (min-width: 1280px) {
@@ -190,12 +192,7 @@
 
     @media screen and (min-width: 1280px) {
       width: 136px;
-
     }
-  }
-
-  &__buttons {
-    display: flex;
   }
 }
 
