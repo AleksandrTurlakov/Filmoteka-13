@@ -9,7 +9,7 @@ const libraryBack = document.querySelector('.library');
 
 const watchedBtn = document.querySelector('#watched-btn');
 const queueBtn = document.querySelector('#queue-btn');
-const deleteBtn = document.querySelector('#delete-btn');
+const deleteBtn = document.querySelector('.library__btn-list-delete');
 const body = document.querySelector('body');
 const backdropLibrary = document.querySelector('.backdropLibrary');
 
@@ -27,7 +27,7 @@ function onWatchedClick() {
   watchedBtn.classList.toggle('activeBtn');
   queueBtn.classList.remove('activeBtn');
 
-  watched.forEach(index => console.log(index));
+  // watched.forEach(index => console.log(index));
 }
 
 function onQueueClick() {
@@ -44,6 +44,14 @@ function onQueueClick() {
 let movie_id = '';
 
 libraryUl.addEventListener('click', handleCardClick);
+// deleteBtn.addEventListener('click', onDeleteClick);
+
+// function onDeleteClick(evt) {
+//   if (evt.target.closest('.btn-list-delete')?.id === 'close') {
+//     console.log(evt.target);
+//   }
+// }
+
 function handleCardClick(evt) {
   if (evt.target === evt.currentTarget) return;
   backdropLibrary.innerHTML = '';
@@ -135,15 +143,4 @@ function handleCardClick(evt) {
       document.removeEventListener('keydown', escapeClose);
     }
   }
-}
-
-// =================== DELETE
-
-deleteBtn.addEventListener('click', onDeleteClick);
-
-function onDeleteClick(event) {
-  if (evt.target === evt.currentTarget) return;
-  backdropLibrary.innerHTML = '';
-  const parent = evt.target.closest('li');
-  movie_id = parent.dataset.id;
 }

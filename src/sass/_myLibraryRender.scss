@@ -2,27 +2,27 @@
   border: none;
   cursor: pointer;
   transition: transform 300ms ease-in-out;
-  position: relative;
+  position: absolute;
   border-radius: 20%;
   font-size: 25px;
-  right: 110px;
-  bottom: 100px;
+  right: 15px;
+  bottom: 65px;
   min-width: 40px;
   min-height: 40px;
   font-size: 30px;
 
   @media screen and (min-width: $tablet) {
     display: inline-block;
-    right: 130px;
-    bottom: 110px;
+    right: 15px;
+    bottom: 65px;
     min-width: 50px;
     min-height: 50px;
     font-size: 35px;
   }
   @media screen and (min-width: $desktop) {
     display: inline-block;
-    right: 150px;
-    bottom: 140px;
+    right: 20px;
+    bottom: 85px;
     min-width: 60px;
     min-height: 60px;
     font-size: 45px;
@@ -37,6 +37,22 @@
 .fa-trash-alt:hover {
   color: rgb(255, 255, 255);
   transform: scale(1.2);
+}
+.far {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+  background-size: 75%;
+  justify-content: center;
+  background-image: url('/src/img/icons/close-icon-black.svg');
+  @media screen and (min-width: $tablet) {
+    background-size: 100%;
+  }
+  @media screen and (min-width: $desktop) {
+    background-size: 130%;
+  }
 }
 
 .library__main-image {
