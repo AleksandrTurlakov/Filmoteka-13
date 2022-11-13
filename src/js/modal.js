@@ -78,13 +78,11 @@ function handleCardClick(evt) {
 
   function addListenersOnModalWindow() {
     const closeModal = document.querySelector('.button-close');
-    console.log(closeModal);
     closeModal.addEventListener('click', onBtnCloseModalWindow);
     backdropModal.addEventListener('click', closeModalWindow);
   }
 
   function closeModalWindow(e) {
-    console.log(e.target);
     if (e.target === e.currentTarget) {
       backdropModal.classList.add('is-hidden');
       body.classList.remove('no-scroll');
