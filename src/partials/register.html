@@ -1,0 +1,81 @@
+<div class="register-wrapper">
+  <div class="register-overlay hidden">
+    <form
+      class="register-form hidden"
+      data-target="register"
+      title="Register Form"
+    >
+      <label for="email"
+        >Your e-mail<input
+          placeholder="Input your e-mail"
+          class="register-input"
+          type="email"
+          name="email"
+          required
+      /></label>
+      <label for="password"
+        >Your Password<input
+          placeholder="Input your password"
+          class="register-input"
+          type="password"
+          name="password"
+          required
+      /></label>
+      <button class="register-btn">Register</button>
+      <button class="close-reg-modal-btn" data-close="register">
+        <img
+          class="close-modal-icon"
+          src="/src/img/icons/close.svg"
+          alt="close"
+        />
+      </button>
+    </form>
+    <form
+      class="sign-in-form hidden"
+      data-target="sign-in"
+      title="Register Form"
+    >
+      <label for="email"
+        >Your e-mail<input
+          placeholder="Input your e-mail"
+          class="register-input"
+          type="email"
+          name="email"
+          required
+      /></label>
+      <label for="password"
+        >Your Password<input
+          placeholder="Input your password"
+          class="register-input"
+          type="password"
+          name="password"
+          required
+      /></label>
+      <button class="log-in-btn">Log in</button>
+      <button class="close-reg-modal-btn" data-close="sign-in">
+        <img
+          class="close-modal-icon"
+          src="/src/img/icons/close.svg"
+          alt="close"
+        />
+      </button>
+    </form>
+  </div>
+</div>
+<div class="wrapper-burger" id="wrapper-burger">
+  <button class="close-btn-burger">
+    <img class="close-icon-burger" src="/src/img/icons/close.svg" alt="close" />
+  </button>
+  <div class="wrapper-reg">
+    Please
+    <button class="wrapper-reg-btn" data-open="sign-in">log in</button> or
+    <button class="wrapper-reg-btn" data-open="register">register</button> to
+    use the library
+  </div>
+</div>
+<div class="wrapper-reg tablet">
+  Please
+  <button class="wrapper-reg-btn tablet" data-open="sign-in">log in</button> or
+  <button class="wrapper-reg-btn tablet" data-open="register">register</button>
+  to use the library
+</div>

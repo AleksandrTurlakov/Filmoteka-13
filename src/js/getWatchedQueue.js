@@ -92,55 +92,16 @@ function handleCardClick(evt) {
       id: response.id,
     };
     backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
-
-    openModalWindow();
-  }
-
-  const scrollUp = document.querySelector('.scroll-up');
-
-  function openModalWindow() {
-    backdropLibrary.classList.remove('is-hidden');
-    body.classList.add('no-scroll');
-    scrollUp.classList.remove('scroll-up--active');
-    backdropLibrary.removeEventListener('click', openModalWindow);
-    addListenersOnModalWindow();
-  }
-
-  function addListenersOnModalWindow() {
-    const closeModal = document.querySelector('.button-close');
-    closeModal.addEventListener('click', onBtnCloseModalWindow);
-    backdropLibrary.addEventListener('click', closeModalWindow);
-  }
-
-  function closeModalWindow(e) {
-    console.log(e.target);
-    console.log(e.currentTarget);
-
-    if (e.target === e.currentTarget) {
-      backdropLibrary.classList.add('is-hidden');
-      body.classList.remove('no-scroll');
-      scrollUp.classList.add('scroll-up--active');
-      // closeModal.removeEventListener('click', onBtnCloseModalWindow);
-      backdropLibrary.removeEventListener('click', closeModalWindow);
-    }
-  }
-
-  function onBtnCloseModalWindow() {
-    backdropLibrary.classList.add('is-hidden');
-    body.classList.remove('no-scroll');
-    scrollUp.classList.add('scroll-up--active');
-    // closeModal.removeEventListener('click', onBtnCloseModalWindow);
-    backdropLibrary.removeEventListener('click', closeModalWindow);
-  }
-
-  document.addEventListener('keydown', escapeClose);
-  function escapeClose(event) {
-    if (event.code !== 'Escape') return;
-    if (event.code === 'Escape') {
-      backdropLibrary.classList.add('is-hidden');
-      body.classList.remove('no-scroll');
-      scrollUp.classList.add('scroll-up--active');
-      document.removeEventListener('keydown', escapeClose);
-    }
-  }
 }
+
+// =================== DELETE
+
+deleteBtn.addEventListener('click', onDeleteClick);
+
+function onDeleteClick(event) {
+  if (evt.target === evt.currentTarget) return;
+  backdropLibrary.innerHTML = '';
+  const parent = evt.target.closest('li');
+  movie_id = parent.dataset.id;
+}
+
