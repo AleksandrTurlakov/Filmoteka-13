@@ -1,6 +1,6 @@
 // import myLibraryPage from './myLibraryPage.js';
 
-import cardEl from '../js/templates/card.hbs';
+import cardEl from '../js/templates/libraryCard.hbs';
 import { getDataApi } from './getDataApi';
 import modalWindow from './templates/modalWindow.hbs';
 
@@ -9,6 +9,7 @@ const libraryBack = document.querySelector('.library');
 
 const watchedBtn = document.querySelector('#watched-btn');
 const queueBtn = document.querySelector('#queue-btn');
+const deleteBtn = document.querySelector('#delete-btn');
 const body = document.querySelector('body');
 const backdropLibrary = document.querySelector('.backdropLibrary');
 
@@ -37,6 +38,8 @@ function onQueueClick() {
   queueBtn.classList.toggle('activeBtn');
   watchedBtn.classList.remove('activeBtn');
 }
+
+// ============  MODAL
 
 let movie_id = '';
 
@@ -132,4 +135,15 @@ function handleCardClick(evt) {
       document.removeEventListener('keydown', escapeClose);
     }
   }
+}
+
+// =================== DELETE
+
+deleteBtn.addEventListener('click', onDeleteClick);
+
+function onDeleteClick(event) {
+  if (evt.target === evt.currentTarget) return;
+  backdropLibrary.innerHTML = '';
+  const parent = evt.target.closest('li');
+  movie_id = parent.dataset.id;
 }
