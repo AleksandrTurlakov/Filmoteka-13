@@ -1,11 +1,5 @@
-<<<<<<< Updated upstream
-// import myLibraryPage from './myLibraryPage.js';
-
-import cardEl from '../js/templates/libraryCard.hbs';
-=======
 import queueCard from '../js/templates/queueCard.hbs';
 import watchCard from "../js/templates/watchCard.hbs";
->>>>>>> Stashed changes
 import { getDataApi } from './getDataApi';
 import modalWindow from './templates/modalWindow.hbs';
 
@@ -13,19 +7,12 @@ const libraryUl = document.querySelector('.library__list');
 const libraryBack = document.querySelector('.library');
 const watchedBtn = document.querySelector('#watched-btn');
 const queueBtn = document.querySelector('#queue-btn');
-<<<<<<< Updated upstream
-const deleteBtn = document.querySelector('.library__btn-list-delete');
-const body = document.querySelector('body');
-const backdropLibrary = document.querySelector('.backdropLibrary');
-
-=======
 
 
 const body = document.querySelector('body');
 const backdropLibrary = document.querySelector('.backdrop');
 const loadToPageWatch = () => { if (!JSON.parse(localStorage.getItem('watched'))) { return libraryUl.textContent = "" } else return watched.map(watchCard).join('') }
 const loadToPageQueue = () => { if (!JSON.parse(localStorage.getItem('queue'))) {return libraryUl.textContent="" } else return queue.map(queueCard).join('') }
->>>>>>> Stashed changes
 const watched = JSON.parse(localStorage.getItem('watched'));
 const queue = JSON.parse(localStorage.getItem('queue'));
 
@@ -58,13 +45,6 @@ function onQueueClick() {
 let movie_id = '';
 
 libraryUl.addEventListener('click', handleCardClick);
-// deleteBtn.addEventListener('click', onDeleteClick);
-
-// function onDeleteClick(evt) {
-//   if (evt.target.closest('.btn-list-delete')?.id === 'close') {
-//     console.log(evt.target);
-//   }
-// }
 
 function handleCardClick(evt) {
   if (evt.target === libraryUl)  return ;
@@ -135,41 +115,6 @@ function handleCardClick(evt) {
       backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
       openModalWindow();
     }
-<<<<<<< Updated upstream
-    const src = srcAudit();
-    const name = response.title.toUpperCase();
-    const vote = response.vote_average.toFixed(1);
-    const vote_count = response.vote_count;
-    const popularity = response.popularity;
-    const original_title = response.original_title;
-    const overview = response.overview;
-    const data = {
-      src,
-      name,
-      vote,
-      vote_count,
-      popularity,
-      original_title,
-      genr,
-      overview,
-      id: response.id,
-    };
-    backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
-
-}
-
-// =================== DELETE
-
-deleteBtn.addEventListener('click', onDeleteClick);
-
-function onDeleteClick(event) {
-  if (evt.target === evt.currentTarget) return;
-  backdropLibrary.innerHTML = '';
-  const parent = evt.target.closest('li');
-  movie_id = parent.dataset.id;
-}
-
-=======
     
 
   const scrollUp = document.querySelector('.scroll-up');
@@ -222,4 +167,3 @@ function onDeleteClick(event) {
 }
 
 
->>>>>>> Stashed changes
