@@ -1,7 +1,5 @@
-
 import queueCard from '../js/templates/queueCard.hbs';
 import watchCard from "../js/templates/watchCard.hbs";
-
 import { getDataApi } from './getDataApi';
 import modalWindow from './templates/modalWindow.hbs';
 
@@ -9,6 +7,8 @@ const libraryUl = document.querySelector('.library__list');
 const libraryBack = document.querySelector('.library');
 const watchedBtn = document.querySelector('#watched-btn');
 const queueBtn = document.querySelector('#queue-btn');
+
+
 const body = document.querySelector('body');
 const backdropLibrary = document.querySelector('.backdrop');
 const loadToPageWatch = () => { if (!JSON.parse(localStorage.getItem('watched'))) { return libraryUl.textContent = "" } else return watched.map(watchCard).join('') }
@@ -115,29 +115,7 @@ function handleCardClick(evt) {
       backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
       openModalWindow();
     }
-
-    const src = srcAudit();
-    const name = response.title.toUpperCase();
-    const vote = response.vote_average.toFixed(1);
-    const vote_count = response.vote_count;
-    const popularity = response.popularity;
-    const original_title = response.original_title;
-    const overview = response.overview;
-    const data = {
-      src,
-      name,
-      vote,
-      vote_count,
-      popularity,
-      original_title,
-      genr,
-      overview,
-      id: response.id,
-    };
-
-    backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
-    openModalWindow();
-  }
+    
 
   const scrollUp = document.querySelector('.scroll-up');
 
@@ -173,7 +151,6 @@ function handleCardClick(evt) {
     }
   }
 
-
   document.addEventListener('keydown', escapeClose);
   function escapeClose(event) {
     if (event.code !== 'Escape') return;
@@ -188,3 +165,5 @@ function handleCardClick(evt) {
   }
   
 }
+
+
