@@ -7,11 +7,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
   top: 2%;
-  left: 87%;
+  left: 82%;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  @include tablet {
+    top: 2%;
+    left: 84%;
+    width: 40px;
+    height: 40px;
+  }
+  @include desktop {
+    top: 1, 2%;
+    left: 87%;
+    width: 40px;
+    height: 40px;
+  }
 }
 .library__film-item {
   position: relative;
