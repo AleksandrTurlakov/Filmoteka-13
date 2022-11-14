@@ -27,7 +27,23 @@ function handleCardClick(evt) {
   findFilm();
 
   function buildElements(response) {
-    const genr = response.genres.map(genr => genr.name).join(', ');
+    const genres = response.genres.map(genr => genr.name).join(', ');
+    function auditGanres() {
+      if (response.genres.length < 3) {
+        return genres;
+      }
+      return (
+        response.genres
+          .map(elem => elem.name)
+          .slice(0, 2)
+          .join(', ') + ', others'
+      );
+    }
+     function auditYear() {
+      if (!response.release_date) {
+        return 'unknown year';
+      } else return response.release_date.slice(0, 4);
+    }
 
     function srcAudit() {
       if (!response.poster_path) {
@@ -35,6 +51,8 @@ function handleCardClick(evt) {
       }
       return `https://image.tmdb.org/t/p/w500${response.poster_path}`;
     }
+    const year= auditYear()
+    const genr = auditGanres();
     const src = srcAudit();
     const name = response.title.toUpperCase();
     const vote = response.vote_average.toFixed(1);
@@ -52,6 +70,7 @@ function handleCardClick(evt) {
       genr,
       overview,
       id: response.id,
+      year
     };
 
     backdropModal.insertAdjacentHTML('beforeend', modalWindow(data));

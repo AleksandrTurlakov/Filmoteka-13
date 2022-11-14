@@ -1,5 +1,6 @@
 .modal {
   position: fixed;
+  border-radius: 2em;
   max-width: 280px;
   font-size: 12px;
   top: 70%;
@@ -88,10 +89,12 @@
     background-color: #ff6b01;
     border-radius: 5px;
     color: #ffffff;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 36px;
-    height: 13px;
-    display: inline-block;
+    height: 15px;
+    display: inline-flex;
     line-height: 1.16;
   }
 
@@ -118,9 +121,10 @@
     @media screen and (min-width: 768px) {
       max-height: 80px;
     }
-         @media screen and (min-width: 1280px) {
-           max-height: 240px;
-         }
+
+    @media screen and (min-width: 1280px) {
+      max-height: 240px;
+    }
 
   }
 
@@ -135,9 +139,11 @@
     bottom: 30px;
     display: flex;
 
-      @media screen and (min-width: 1280px) {
-        bottom: 20px;
-        }
+
+    @media screen and (min-width: 1280px) {
+      bottom: 20px;
+    }
+
   }
 
   &__watchedButton {
@@ -193,7 +199,6 @@
 
     @media screen and (min-width: 1280px) {
       width: 136px;
-
     }
   }
 

@@ -1,58 +1,25 @@
 .library__btn-list-delete {
-  border: none;
-  cursor: pointer;
+  border: 0;
   transition: transform 300ms ease-in-out;
+  background-color: #ff6b08;
+  opacity: 0.5;
   position: absolute;
-  border-radius: 20%;
-  font-size: 25px;
-  right: 15px;
-  bottom: 65px;
-  min-width: 40px;
-  min-height: 40px;
-  font-size: 30px;
-
-  @media screen and (min-width: $tablet) {
-    display: inline-block;
-    right: 15px;
-    bottom: 65px;
-    min-width: 50px;
-    min-height: 50px;
-    font-size: 35px;
-  }
-  @media screen and (min-width: $desktop) {
-    display: inline-block;
-    right: 20px;
-    bottom: 85px;
-    min-width: 60px;
-    min-height: 60px;
-    font-size: 45px;
-    padding: 0;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 2%;
+  left: 87%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.library__film-item {
+  position: relative;
 }
 
 .library__btn-list-delete:hover {
   background-color: #ff6b08;
-  transform: scale(1.2);
-}
-.fa-trash-alt:hover {
-  color: rgb(255, 255, 255);
-  transform: scale(1.2);
-}
-.far {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 40px;
-  height: 40px;
-  background-size: 75%;
-  justify-content: center;
-  background-image: url('/src/img/icons/close-icon-black.svg');
-  @media screen and (min-width: $tablet) {
-    background-size: 100%;
-  }
-  @media screen and (min-width: $desktop) {
-    background-size: 130%;
-  }
+  transform: scale(1.125);
 }
 
 .library__main-image {
@@ -94,7 +61,6 @@
 
   @include desktop {
     width: 395;
-    // max-height: 640px;
   }
 }
 .library__info {

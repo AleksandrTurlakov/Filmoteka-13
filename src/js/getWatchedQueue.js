@@ -1,17 +1,18 @@
-import cardEl from '../js/templates/libraryCard.hbs';
+import queueCard from '../js/templates/queueCard.hbs';
+import watchCard from "../js/templates/watchCard.hbs";
 import { getDataApi } from './getDataApi';
 import modalWindow from './templates/modalWindow.hbs';
 
 const libraryUl = document.querySelector('.library__list');
 const libraryBack = document.querySelector('.library');
-
 const watchedBtn = document.querySelector('#watched-btn');
 const queueBtn = document.querySelector('#queue-btn');
-const deleteBtn = document.querySelector('.library__btn-list-delete');
+
 
 const body = document.querySelector('body');
 const backdropLibrary = document.querySelector('.backdrop');
-
+const loadToPageWatch = () => { if (!JSON.parse(localStorage.getItem('watched'))) { return libraryUl.textContent = "" } else return watched.map(watchCard).join('') }
+const loadToPageQueue = () => { if (!JSON.parse(localStorage.getItem('queue'))) {return libraryUl.textContent="" } else return queue.map(queueCard).join('') }
 const watched = JSON.parse(localStorage.getItem('watched'));
 const queue = JSON.parse(localStorage.getItem('queue'));
 
@@ -19,8 +20,9 @@ watchedBtn.addEventListener('click', onWatchedClick);
 queueBtn.addEventListener('click', onQueueClick);
 
 function onWatchedClick() {
+
   libraryUl.innerHTML = '';
-  libraryUl.insertAdjacentHTML('beforeend', watched.map(cardEl).join(''));
+  libraryUl.insertAdjacentHTML('beforeend',loadToPageWatch() );
   libraryUl.classList.remove('visually-hidden');
   libraryBack.classList.add('visually-hidden');
   watchedBtn.classList.toggle('activeBtn');
@@ -31,7 +33,7 @@ function onWatchedClick() {
 
 function onQueueClick() {
   libraryUl.innerHTML = '';
-  libraryUl.insertAdjacentHTML('beforeend', queue.map(cardEl).join(''));
+  libraryUl.insertAdjacentHTML('beforeend', loadToPageQueue());
   libraryUl.classList.remove('visually-hidden');
   libraryBack.classList.add('visually-hidden');
   queueBtn.classList.toggle('activeBtn');
@@ -45,7 +47,33 @@ let movie_id = '';
 libraryUl.addEventListener('click', handleCardClick);
 
 function handleCardClick(evt) {
-  if (evt.target === evt.currentTarget) return;
+  if (evt.target === libraryUl)  return ;
+  const libraryLi = document.querySelectorAll('.library__film-item');
+  const btn = evt.composedPath()[evt.composedPath().length - 8];
+  const filmId = btn.offsetParent.dataset.id;
+  let arrayData = [];
+  if (btn.id === 'delete') {
+    libraryLi.forEach((item) => {
+      if (item.dataset.id === filmId) {
+        item.remove();
+        let whatList = item.id;
+        const dataFromStorage = JSON.parse(localStorage.getItem(`${whatList}`));
+        if (dataFromStorage.length===1) {
+          localStorage.removeItem(`${whatList}`)
+        }
+       
+        dataFromStorage.map(el => {
+          if (el.id !== Number(filmId)) {
+            arrayData.push(el);
+            localStorage.setItem(`${whatList}`, JSON.stringify(arrayData))
+          }
+        })
+      }
+    })
+  }
+  
+  else {
+     if (evt.target === evt.currentTarget) return;
   backdropLibrary.innerHTML = '';
   const parent = evt.target.closest('li');
   movie_id = parent.dataset.id;
@@ -56,37 +84,38 @@ function handleCardClick(evt) {
   }
   findFilm();
 
-  function buildElements(response) {
-    const genr = response.genres.map(genr => genr.name).join(', ');
+    function buildElements(response) {
+      const genr = response.genres.map(genr => genr.name).join(', ');
 
-    function srcAudit() {
-      if (!response.poster_path) {
-        return `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`;
+      function srcAudit() {
+        if (!response.poster_path) {
+          return `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-no-image-available-icon-flat.jpg`;
+        }
+        return `https://image.tmdb.org/t/p/w500${response.poster_path}`;
       }
-      return `https://image.tmdb.org/t/p/w500${response.poster_path}`;
-    }
-    const src = srcAudit();
-    const name = response.title.toUpperCase();
-    const vote = response.vote_average.toFixed(1);
-    const vote_count = response.vote_count;
-    const popularity = response.popularity;
-    const original_title = response.original_title;
-    const overview = response.overview;
-    const data = {
-      src,
-      name,
-      vote,
-      vote_count,
-      popularity,
-      original_title,
-      genr,
-      overview,
-      id: response.id,
-    };
+      const src = srcAudit();
+      const name = response.title.toUpperCase();
+      const vote = response.vote_average.toFixed(1);
+      const vote_count = response.vote_count;
+      const popularity = response.popularity;
+      const original_title = response.original_title;
+      const overview = response.overview;
+      const data = {
+        src,
+        name,
+        vote,
+        vote_count,
+        popularity,
+        original_title,
+        genr,
+        overview,
+        id: response.id,
+      };
 
-    backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
-    openModalWindow();
-  }
+      backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
+      openModalWindow();
+    }
+    
 
   const scrollUp = document.querySelector('.scroll-up');
 
@@ -132,15 +161,9 @@ function handleCardClick(evt) {
       document.removeEventListener('keydown', escapeClose);
     }
   }
-
-  // =================== DELETE
-
-  // deleteBtn.addEventListener('click', onDeleteClick);
-
-  // function onDeleteClick(event) {
-  //   if (evt.target === evt.currentTarget) return;
-  //   backdropLibrary.innerHTML = '';
-  //   const parent = evt.target.closest('li');
-  //   movie_id = parent.dataset.id;
-  // }
+    
+  }
+  
 }
+
+

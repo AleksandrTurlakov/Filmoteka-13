@@ -1,0 +1,42 @@
+<li class='library__film-item' id='queue' data-id={{id}}>
+  <img
+    class='library__main-image'
+    loading='lazy'
+    src='{{src}}'
+    alt='{{name}}'
+  />
+  <div class='library__tex-item'>
+    <p class='library__item-name'>{{name}}</p>
+    <div class='library__info'>
+      <p class='library__item-genre'>{{genr}}</p>
+      <p class='library__item-year'>{{year}}<span
+          class='vote'
+        >{{vote}}</span></p>
+    </div>
+  </div>
+  <button
+    class='library__btn-list-delete'
+    id='delete'
+    type='button'
+    title='delete'
+  >
+    <svg
+      id='delete'
+      class='icon-cls-lib'
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 24 24'
+    ><defs id='delete'><style id='delete'>
+          .del-icon-lib{fill:#fff;opacity:0;}.cls-2{fill:#231f20;}</style></defs><title
+      ></title><g data-name='Layer 2'><g id='delete'><g data-name='close'><rect
+              id='delete'
+              class='del-icon-lib'
+              width='24'
+              height='24'
+              transform='translate(24 24) rotate(180)'
+            ></rect><path
+              id='delete'
+              class='cls-2'
+              d='M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z'
+            ></path></g></g></g></svg>
+  </button>
+</li>
