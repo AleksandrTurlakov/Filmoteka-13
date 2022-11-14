@@ -1,0 +1,43 @@
+<div class='modal modal-lib' id={{id}}>
+    <button class='button-close' data-action="close-modal">
+      <svg class='button-close__icon' width='30' height='30'>
+      </svg>
+    </button>
+  <div class='modal__poster'>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+
+      <img class='modal__image' src="{{src}}"" alt="{{name}}"" width='275' />
+
+  </div>
+
+  <div class='modal__filmBox'>
+    <h2 class='modal__name'>{{name}}</h2>
+
+    <table class='modal__table'>
+      <tr>
+        <td class='modal__title'>Vote / votes</td>
+        <td><span class='modal__vote'>{{vote}}</span>
+          /
+          <span class='vote__total'>{{vote_count}}</span></td>
+      </tr>
+      <tr>
+        <td class='modal__title'>Popularity</td>
+        <td>{{popularity}}</td>
+      </tr>
+      <tr>
+        <td class='modal__title'>Original Title</td>
+        <td class='modal__nameOriginal'>{{original_title}}</td>
+      </tr>
+      <tr>
+        <td class='modal__title'>Genre</td>
+        <td>{{genr}}</td>
+      </tr>
+    </table>
+
+    <h3>About</h3>
+    <div class='modal__description'>{{overview}}</div>
+            <div class="modal-trailer" id="player"></div>
+    <div class='modal__buttons'>
+      <button class='modal__watchedButton watch-trailer'>Watch trailer</button>
+    </div>
+  </div>
+</div>

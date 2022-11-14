@@ -1,7 +1,8 @@
 import queueCard from '../js/templates/queueCard.hbs';
 import watchCard from "../js/templates/watchCard.hbs";
 import { getDataApi } from './getDataApi';
-import modalWindow from './templates/modalWindow.hbs';
+import modalWindowLib from './templates/modalWindowLib.hbs';
+import { onYouTubeIframeAPIReady, stopVideo, player } from './trailer.js';
 
 const libraryUl = document.querySelector('.library__list');
 const libraryBack = document.querySelector('.library');
@@ -112,7 +113,7 @@ function handleCardClick(evt) {
         id: response.id,
       };
 
-      backdropLibrary.insertAdjacentHTML('beforeend', modalWindow(data));
+      backdropLibrary.insertAdjacentHTML('beforeend', modalWindowLib(data));
       openModalWindow();
     }
     
@@ -131,25 +132,54 @@ function handleCardClick(evt) {
     const closeModal = document.querySelector('.button-close');
     closeModal.addEventListener('click', onBtnCloseModalWindow);
     backdropLibrary.addEventListener('click', closeModalWindow);
+    const watchTrailer = document.querySelector('.watch-trailer');
+    watchTrailer.addEventListener('click', onBtnWatchTrailer);
+    }
+      function onBtnWatchTrailer() {
+    const URL_TRL = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=7bfeb33324f72574136d1cd14ae769b5`;
+    function findTrailer() {
+      getDataApi(URL_TRL).then(response => showKey(response.results));
+    }
+    findTrailer();
+
+    function showKey(response) {
+      onYouTubeIframeAPIReady(response[0].key);
+      backdropLibrary.addEventListener('click', closeTrailerlWindow);
+    }
   }
 
-  function onBtnCloseModalWindow() {
+  function closeTrailerlWindow(e) {
+    if (e.target === e.currentTarget) {
+      backdropLibrary.classList.add('is-hidden');
+      scrollUp.classList.add('scroll-up--active');
+      if (player) {
+        stopVideo();
+      }
+    }
+  }
+
+   function onBtnCloseModalWindow() {
+    const closeModal = document.querySelector('.button-close');
     backdropLibrary.classList.add('is-hidden');
     body.classList.remove('no-scroll');
     scrollUp.classList.add('scroll-up--active');
-    // closeModal.removeEventListener('click', onBtnCloseModalWindow);
+    if (player) {
+      stopVideo();
+    }
+    closeModal.removeEventListener('click', onBtnCloseModalWindow);
     backdropLibrary.removeEventListener('click', closeModalWindow);
   }
 
-  function closeModalWindow(e) {
-    if (e.target === e.currentTarget) {
-      backdropLibrary.classList.add('is-hidden');
-      body.classList.remove('no-scroll');
-      scrollUp.classList.add('scroll-up--active');
-      // closeModal.removeEventListener('click', onBtnCloseModalWindow);
-      backdropLibrary.removeEventListener('click', closeModalWindow);
+    function closeModalWindow(e) {
+      if (e.target === e.currentTarget) {
+        const closeModal = document.querySelector('.button-close');
+        backdropLibrary.classList.add('is-hidden');
+        body.classList.remove('no-scroll');
+        scrollUp.classList.add('scroll-up--active');
+        closeModal.removeEventListener('click', onBtnCloseModalWindow);
+        backdropLibrary.removeEventListener('click', closeModalWindow);
+      }
     }
-  }
 
   document.addEventListener('keydown', escapeClose);
   function escapeClose(event) {
@@ -159,6 +189,9 @@ function handleCardClick(evt) {
       body.classList.remove('no-scroll');
       scrollUp.classList.add('scroll-up--active');
       document.removeEventListener('keydown', escapeClose);
+      if (player) {
+        stopVideo();
+      }
     }
   }
     
