@@ -121,9 +121,11 @@
     @media screen and (min-width: 768px) {
       max-height: 80px;
     }
+
     @media screen and (min-width: 1280px) {
       max-height: 240px;
     }
+
   }
 
   &__h3 {
@@ -137,9 +139,11 @@
     bottom: 30px;
     display: flex;
 
+
     @media screen and (min-width: 1280px) {
       bottom: 20px;
     }
+
   }
 
   &__watchedButton {
@@ -197,6 +201,7 @@
       width: 136px;
     }
   }
+
 }
 
 .button-close {
