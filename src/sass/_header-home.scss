@@ -4,12 +4,10 @@
 }
 
 .header__home__background {
-  // opacity: 0.9;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-    url('../img/header/mob_1x-min.jpg');
+  background-image: url('../img/header/mob_1x-min.jpg');
   @media (min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
@@ -42,8 +40,12 @@
 .border {
   border-bottom: 1px solid #ffffff;
   margin: 0 auto;
+  width: 277px;
+  @include mobile {
+    width: 285px;
+  }
   @include tablet {
-    width: 394px;
+    width: 400px;
   }
 }
 
@@ -53,15 +55,19 @@
 }
 
 .search__input {
+  color: #ff6b08;
+  width: 260px;
   background-color: transparent;
   border: none;
   &:focus {
     outline: none;
   }
 
-  width: 375px;
   &::placeholder {
     color: #ffffff;
+  }
+  @include tablet {
+    width: 375px;
   }
 }
 
@@ -76,8 +82,8 @@
 
 .icon-search {
   transition: all 0.3s;
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   &:hover {
     scale: 1.3;
   }

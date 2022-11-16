@@ -29,7 +29,7 @@ function onWatchedClick() {
   watchedBtn.classList.toggle('activeBtn');
   queueBtn.classList.remove('activeBtn');
 
-  // watched.forEach(index => console.log(index));
+  
 }
 
 function onQueueClick() {
