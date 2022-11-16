@@ -115,18 +115,21 @@ function handleCardClick(evt) {
 
       backdropLibrary.insertAdjacentHTML('beforeend', modalWindowLib(data));
       openModalWindow();
-    }
+          function openModalWindow() {
     
-
-  const scrollUp = document.querySelector('.scroll-up');
-
-  function openModalWindow() {
-    backdropLibrary.classList.remove('is-hidden');
+        backdropLibrary.style.background = `url('https://image.tmdb.org/t/p/original${response.backdrop_path}') no-repeat center,linear-gradient(to right, hsla(0, 0%, 0%, 0.2), #00000033) `;
+            backdropLibrary.classList.remove('is-hidden');
+            backdropLibrary.style.backgroundSize = 'cover';
     body.classList.add('no-scroll');
     scrollUp.classList.remove('scroll-up--active');
     backdropLibrary.removeEventListener('click', openModalWindow);
     addListenersOnModalWindow();
   }
+
+    }
+    
+
+  const scrollUp = document.querySelector('.scroll-up');
 
   function addListenersOnModalWindow() {
     const closeModal = document.querySelector('.button-close');
