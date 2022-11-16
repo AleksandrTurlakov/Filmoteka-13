@@ -1,53 +1,55 @@
 .modal {
-  position: fixed;
+  position: relative;
+  overflow: auto;
+  max-height: 97vh;
   border-radius: 2em;
-  max-width: 280px;
+  width: 280px;
   font-size: 12px;
-  top: 70%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%);
   background-color: #ffffff;
-  size: 12px;
+
   line-height: 1.33;
   text-align: left;
-  padding: 48px 20px 40px 20px;
+  padding: 30px 20px 20px;
   font-weight: 500;
   letter-spacing: normal;
   z-index: 11;
 
-  @media screen and (min-width: 768px) {
+  @include tablet {
     display: flex;
-    top: 50%;
-    min-width: 704px;
+    width: 704px;
+    height: 552px;
     padding: 40px 40px 30px 36px;
   }
 
-  @media screen and (min-width: 1280px) {
-    min-width: 806px;
+  @include desktop {
+    height: 558px;
+    width: 806px;
     padding: 40px 30px 20px 12px;
   }
 
   &__filmBox {
-    @media screen and (min-width: 768px) {
-      max-width: 280px;
+    @include tablet {
+      width: 264px;
     }
 
-    @media screen and (min-width: 1280px) {
-      max-width: 391px;
+    @include desktop {
+      width: 391px;
     }
   }
 
   &__poster {
     height: 357px;
-    width: 240px;
 
-    @media screen and (min-width: 768px) {
+    @include tablet {
       height: 373px;
       width: 264px;
       margin-right: 68px;
     }
 
-    @media screen and (min-width: 1280px) {
+    @include desktop {
       height: 478px;
       width: 375px;
       margin-right: 16px;
@@ -58,6 +60,7 @@
     object-fit: cover;
     width: 100%;
     height: 100%;
+    border-radius: 1.7em;
   }
 
   &__name {
@@ -66,7 +69,7 @@
     line-height: 1.15;
     margin-top: 20px;
 
-    @media screen and (min-width: 768px) {
+    @include tablet {
       margin-top: 0px;
     }
   }
@@ -80,7 +83,7 @@
     color: #8c8c8c;
     padding-right: 39px;
 
-    @media screen and (min-width: 1280px) {
+    @include desktop {
       padding-right: 83px;
     }
   }
@@ -113,19 +116,13 @@
   }
 
   &__description {
-    padding-bottom: 40px;
     line-height: 1.66;
     overflow: auto;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
-    @media screen and (min-width: 768px) {
-      max-height: 80px;
-    }
-
-    @media screen and (min-width: 1280px) {
+    @include desktop {
       max-height: 240px;
     }
-
   }
 
   &__h3 {
@@ -133,75 +130,35 @@
   }
 
   &__buttons {
-    justify-content: space-evenly;
-    right: 10%;
-    position: absolute;
-    bottom: 30px;
     display: flex;
-
-
-    @media screen and (min-width: 1280px) {
-      bottom: 20px;
-    }
-
+    gap: 10px;
+    justify-content: space-between;
   }
-
-  &__watchedButton {
-    background-color: #ff6b01;
-    border: none;
-    color: #ffffff;
-    border-radius: 5px;
-    width: 110px;
-    height: 44px;
-    text-transform: uppercase;
-    font-weight: 500;
-    margin-right: 10px;
-
-    &:hover {
-      background-color: white;
-      cursor: pointer;
-      color: black;
-      border: none;
-      border: 1px solid #000000;
-    }
-
-    @media screen and (min-width: 768px) {
-      width: 125px;
-      margin-right: 10px;
-    }
-
-    @media screen and (min-width: 1280px) {
-      width: 136px;
-      margin-left: 8px;
-      margin-right: 15px;
-    }
-  }
-
-  &__queueButton {
-    border-radius: 5px;
+  &__watchedButton,
+  &__queueButton,
+  &__trailerButton {
+    width: 80px;
     border: 1px solid #000000;
-    width: 110px;
-    height: 44px;
-    text-transform: uppercase;
-    background-color: #fff;
+    border-radius: 5px;
+    background-color: transparent;
     font-weight: 500;
-
+    font-size: 12px;
+    line-height: 1.33;
+    transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+    @include tablet {
+      width: 85px;
+      height: 40px;
+    }
+    @include desktop {
+      width: 110px;
+      height: 45px;
+    }
     &:hover {
       background-color: #ff6b01;
-      cursor: pointer;
-      color: white;
-      border: none;
-    }
-
-    @media screen and (min-width: 768px) {
-      width: 125px;
-    }
-
-    @media screen and (min-width: 1280px) {
-      width: 136px;
+      color: #ffffff;
+      border-color: #ff6b01;
     }
   }
-
 }
 
 .button-close {
@@ -244,9 +201,6 @@
   background-image: linear-gradient(to right, hsla(0, 0%, 0%, 0.2), #00000033);
   transition: opacity, visibility, 1000ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  overflow-y: scroll;
-  padding: 50px 30px;
-
   &.is-hidden {
     opacity: 0;
     pointer-events: none;
@@ -262,4 +216,7 @@
 
 .no-scroll {
   overflow: hidden;
+}
+.modal__about {
+  margin-bottom: 8px;
 }

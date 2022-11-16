@@ -1,11 +1,9 @@
 import { getDataApi } from './getDataApi';
-import card from './templates/card.hbs';
 import modalWindow from './templates/modalWindow.hbs';
 
 import { handleClick } from './addWatchedQue';
 
 const filmListModal = document.querySelector('.film-list');
-const filmItemModal = document.querySelector('.film-item');
 const backdropModal = document.querySelector('.backdrop');
 const body = document.querySelector('body');
 
@@ -27,18 +25,8 @@ function handleCardClick(evt) {
   findFilm();
 
   function buildElements(response) {
-    const genres = response.genres.map(genr => genr.name).join(', ');
-    function auditGanres() {
-      if (response.genres.length < 3) {
-        return genres;
-      }
-      return (
-        response.genres
-          .map(elem => elem.name)
-          .slice(0, 2)
-          .join(', ') + ', others'
-      );
-    }
+    const genr = response.genres.map(genr => genr.name).join(', ');
+  
      function auditYear() {
       if (!response.release_date) {
         return 'unknown year';
@@ -52,7 +40,6 @@ function handleCardClick(evt) {
       return `https://image.tmdb.org/t/p/w500${response.poster_path}`;
     }
     const year= auditYear()
-    const genr = auditGanres();
     const src = srcAudit();
     const name = response.title.toUpperCase();
     const vote = response.vote_average.toFixed(1);
@@ -83,17 +70,28 @@ function handleCardClick(evt) {
     [QUEUE_SELECTOR, WATCHED_SELECTOR].map(actionButton => {
       actionButton.addEventListener('click', e => handleClick(e, data));
     });
-  }
-
-  const scrollUp = document.querySelector('.scroll-up');
-
-  function openModalWindow() {
+      function openModalWindow() {
     backdropModal.classList.remove('is-hidden');
+       
+        backdropModal.style.background = `url('https://image.tmdb.org/t/p/original${response.backdrop_path}') no-repeat center,linear-gradient(to right, hsla(0, 0%, 0%, 0.2), #00000033) `;
+        
     body.classList.add('no-scroll');
     scrollUp.classList.remove('scroll-up--active');
     backdropModal.removeEventListener('click', openModalWindow);
     addListenersOnModalWindow();
   }
+  }
+
+  const scrollUp = document.querySelector('.scroll-up');
+
+  // function openModalWindow() {
+  //   backdropModal.classList.remove('is-hidden');
+  //   backdropModal.style.background = ` url('../img/header/mob_2x-min.jpg') no-repeat center;`;
+  //   body.classList.add('no-scroll');
+  //   scrollUp.classList.remove('scroll-up--active');
+  //   backdropModal.removeEventListener('click', openModalWindow);
+  //   addListenersOnModalWindow();
+  // }
 
   function addListenersOnModalWindow() {
     const closeModal = document.querySelector('.button-close');
