@@ -72,9 +72,8 @@ function handleCardClick(evt) {
     });
       function openModalWindow() {
     backdropModal.classList.remove('is-hidden');
-       
         backdropModal.style.background = `url('https://image.tmdb.org/t/p/original${response.backdrop_path}') no-repeat center,linear-gradient(to right, hsla(0, 0%, 0%, 0.2), #00000033) `;
-        
+        backdropModal.style.backgroundSize = 'cover';
     body.classList.add('no-scroll');
     scrollUp.classList.remove('scroll-up--active');
     backdropModal.removeEventListener('click', openModalWindow);
@@ -83,15 +82,6 @@ function handleCardClick(evt) {
   }
 
   const scrollUp = document.querySelector('.scroll-up');
-
-  // function openModalWindow() {
-  //   backdropModal.classList.remove('is-hidden');
-  //   backdropModal.style.background = ` url('../img/header/mob_2x-min.jpg') no-repeat center;`;
-  //   body.classList.add('no-scroll');
-  //   scrollUp.classList.remove('scroll-up--active');
-  //   backdropModal.removeEventListener('click', openModalWindow);
-  //   addListenersOnModalWindow();
-  // }
 
   function addListenersOnModalWindow() {
     const closeModal = document.querySelector('.button-close');
