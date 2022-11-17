@@ -102,13 +102,13 @@ function handleCardClick(evt) {
 
     function showKey(response) {
       onYouTubeIframeAPIReady(response[0].key);
-      backdropLibrary.addEventListener('click', closeTrailerlWindow);
+      backdropModal.addEventListener('click', closeTrailerlWindow);
     }
   }
 
   function closeTrailerlWindow(e) {
     if (e.target === e.currentTarget) {
-      backdropLibrary.classList.add('is-hidden');
+      backdropModal.classList.add('is-hidden');
       scrollUp.classList.add('scroll-up--active');
       if (player) {
         stopVideo();
