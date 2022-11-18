@@ -11,6 +11,7 @@ const queueBtn = document.querySelector('#queue-btn');
 
 const body = document.querySelector('body');
 const backdropLibrary = document.querySelector('.backdrop');
+
 const loadToPageWatch = () => {
   if (!JSON.parse(localStorage.getItem('watched'))) {
     return (libraryUl.textContent = '');
@@ -135,10 +136,11 @@ function handleCardClick(evt) {
       const closeModal = document.querySelector('.button-close');
       closeModal.addEventListener('click', onBtnCloseModalWindow);
       backdropLibrary.addEventListener('click', closeModalWindow);
-      const watchTrailer = document.querySelector('.watch-trailer');
-      watchTrailer.addEventListener('click', onBtnWatchTrailer);
+      const watchTrailers = document.querySelector('.modal__buttons');
+      watchTrailers.addEventListener('click', onBtnWatchTrailer);
     }
-    function onBtnWatchTrailer() {
+    function onBtnWatchTrailer(evt) {
+      if (evt.target.nodeName !== 'BUTTON') return;
       const URL_TRL = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=7bfeb33324f72574136d1cd14ae769b5`;
       function findTrailer() {
         getDataApi(URL_TRL).then(response => showKey(response.results));
@@ -146,7 +148,13 @@ function handleCardClick(evt) {
       findTrailer();
 
       function showKey(response) {
-        onYouTubeIframeAPIReady(response[0].key);
+        if (evt.target.classList.contains('watch-trailer-0')) {
+          onYouTubeIframeAPIReady(response[0].key);
+        } else if (evt.target.classList.contains('watch-trailer-1')) {
+          onYouTubeIframeAPIReady(response[1].key);
+        } else if (evt.target.classList.contains('watch-trailer-2')) {
+          onYouTubeIframeAPIReady(response[2].key);
+        }
         backdropLibrary.addEventListener('click', closeTrailerlWindow);
       }
     }
