@@ -118,6 +118,7 @@
   &__description {
     line-height: 1.66;
     overflow: auto;
+    height: 140px;
     margin-bottom: 20px;
 
     @include desktop {
@@ -131,13 +132,23 @@
 
   &__buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     justify-content: space-evenly;
   }
+
+  &__buttons-trailers {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__buttons-add {
+    display: flex;
+  }
+
   &__watchedButton,
   &__queueButton,
   &__trailerButton {
-    width: 80px;
+    width: 71px;
     border: 1px solid #000000;
     border-radius: 5px;
     background-color: transparent;
@@ -145,14 +156,21 @@
     font-size: 12px;
     line-height: 1.33;
     transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+    &:not(:last-child) {
+      margin-right: 3px;
+      @include tablet {
+        margin-right: 8px;
+      }
+    }
     @include tablet {
-      width: 85px;
+      width: 76px;
       height: 40px;
     }
     @include desktop {
-      width: 110px;
+      width: 115px;
       height: 45px;
     }
+
     &:hover {
       background-color: #ff6b01;
       color: #ffffff;

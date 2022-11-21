@@ -62,7 +62,36 @@ function handleCardClick(evt) {
     };
 
     backdropModal.insertAdjacentHTML('beforeend', modalWindow(data));
-
+    // =================================== showtrailer
+    const URL_TRL = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=7bfeb33324f72574136d1cd14ae769b5`;
+    function findTrailer() {
+      getDataApi(URL_TRL).then(response => showBtnTrailer(response.results));
+    }
+    findTrailer();
+    function showBtnTrailer(response) {
+      const watchTrailers = document.querySelector('.modal__buttons-trailers');
+      const quantityTrailer = response.map(res => res.key);
+      if (quantityTrailer.length >= 3) {
+        watchTrailers.insertAdjacentHTML(
+          'afterbegin',
+          `<button class='modal__watchedButton watch-trailer-0'>Watch trailer 1</button>
+             <button class='modal__watchedButton watch-trailer-1'>Watch trailer 2</button>
+             <button class='modal__watchedButton watch-trailer-2'>Watch trailer 3</button>`
+        );
+      } else if (quantityTrailer.length === 2) {
+        watchTrailers.insertAdjacentHTML(
+          'afterbegin',
+          `<button class='modal__watchedButton watch-trailer-0'>Watch trailer 1</button>
+             <button class='modal__watchedButton watch-trailer-1'>Watch trailer 2</button>`
+        );
+      } else if (quantityTrailer.length === 1) {
+        watchTrailers.insertAdjacentHTML(
+          'afterbegin',
+          `<button class='modal__watchedButton watch-trailer-0'>Watch trailer 1</button>`
+        );
+      }
+    }
+    // ====================================
     openModalWindow();
 
     const QUEUE_SELECTOR = document.querySelector('.modal__queueButton');
@@ -89,19 +118,25 @@ function handleCardClick(evt) {
     const closeModal = document.querySelector('.button-close');
     closeModal.addEventListener('click', onBtnCloseModalWindow);
     backdropModal.addEventListener('click', closeModalWindow);
-    const watchTrailer = document.querySelector('.watch-trailer');
-    watchTrailer.addEventListener('click', onBtnWatchTrailer);
+    const watchTrailers = document.querySelector('.modal__buttons');
+    watchTrailers.addEventListener('click', onBtnWatchTrailer);
   }
 
-  function onBtnWatchTrailer() {
+  function onBtnWatchTrailer(evt) {
+    if (evt.target.nodeName !== 'BUTTON') return;
     const URL_TRL = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=7bfeb33324f72574136d1cd14ae769b5`;
     function findTrailer() {
       getDataApi(URL_TRL).then(response => showKey(response.results));
     }
     findTrailer();
-
     function showKey(response) {
-      onYouTubeIframeAPIReady(response[0].key);
+      if (evt.target.classList.contains('watch-trailer-0')) {
+        onYouTubeIframeAPIReady(response[0].key);
+      } else if (evt.target.classList.contains('watch-trailer-1')) {
+        onYouTubeIframeAPIReady(response[1].key);
+      } else if (evt.target.classList.contains('watch-trailer-2')) {
+        onYouTubeIframeAPIReady(response[2].key);
+      }
       backdropModal.addEventListener('click', closeTrailerlWindow);
     }
   }
@@ -114,7 +149,6 @@ function handleCardClick(evt) {
       if (player) {
         stopVideo();
       }
-
     }
   }
 
