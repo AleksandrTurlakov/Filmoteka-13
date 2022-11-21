@@ -1,6 +1,7 @@
+import Notiflix from 'notiflix';
 export const handleClick = (e, movieData) => {
   const { target } = e;
-
+ Notiflix.Notify.success(`You have added this movie to the ${e.target.textContent.slice(6).toUpperCase()} .It is in the library`);
   const type = target.textContent.includes('watched') ? 'watched' : 'queue';
 
   prepareDataSetToLS(type, movieData);
