@@ -110,9 +110,11 @@ function handleCardClick(evt) {
     if (e.target === e.currentTarget) {
       backdropModal.classList.add('is-hidden');
       scrollUp.classList.add('scroll-up--active');
+
       if (player) {
         stopVideo();
       }
+
     }
   }
 
@@ -121,10 +123,12 @@ function handleCardClick(evt) {
     backdropModal.classList.add('is-hidden');
     body.classList.remove('no-scroll');
     scrollUp.classList.add('scroll-up--active');
+
     if (player) {
       stopVideo();
     }
     closeModal.removeEventListener('click', onBtnCloseModalWindow);
+
     backdropModal.removeEventListener('click', closeModalWindow);
   }
 
