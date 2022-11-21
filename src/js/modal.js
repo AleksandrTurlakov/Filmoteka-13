@@ -94,7 +94,6 @@ function handleCardClick(evt) {
       backdropModal.classList.add('is-hidden');
       body.classList.remove('no-scroll');
       scrollUp.classList.add('scroll-up--active');
-      // closeModal.removeEventListener('click', onBtnCloseModalWindow);
       backdropModal.removeEventListener('click', closeModalWindow);
     }
   }
@@ -103,7 +102,7 @@ function handleCardClick(evt) {
     backdropModal.classList.add('is-hidden');
     body.classList.remove('no-scroll');
     scrollUp.classList.add('scroll-up--active');
-    // closeModal.removeEventListener('click', onBtnCloseModalWindow);
+  
     backdropModal.removeEventListener('click', closeModalWindow);
   }
 
