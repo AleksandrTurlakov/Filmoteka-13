@@ -7,8 +7,8 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 export let player;
 export function onYouTubeIframeAPIReady(key) {
   player = new YT.Player('player', {
-    height: '360',
-    width: '640',
+    height: '480',
+    width: '700',
     videoId: `${key}`,
     events: {
       onReady: onPlayerReady,
@@ -24,7 +24,7 @@ function onPlayerReady(event) {
 let done = false;
 function onPlayerStateChange(event) {
   if (event.data == YT.PlayerState.PLAYING && !done) {
-    setTimeout(stopVideo, 30000);
+    setTimeout(stopVideo, 50000);
     done = true;
   }
 }

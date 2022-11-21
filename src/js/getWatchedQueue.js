@@ -117,6 +117,36 @@ function handleCardClick(evt) {
       };
 
       backdropLibrary.insertAdjacentHTML('beforeend', modalWindowLib(data));
+      // =================================== showtrailer
+      const URL_TRL = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=7bfeb33324f72574136d1cd14ae769b5`;
+      function findTrailer() {
+        getDataApi(URL_TRL).then(response => showBtnTrailer(response.results));
+      }
+      findTrailer();
+      function showBtnTrailer(response) {
+        const watchTrailers = document.querySelector('.modal__buttons');
+        const quantityTrailer = response.map(res => res.key);
+        if (quantityTrailer.length >= 3) {
+          watchTrailers.insertAdjacentHTML(
+            'afterbegin',
+            `<button class='modal__watchedButton watch-trailer-0'>Watch trailer 1</button>
+             <button class='modal__watchedButton watch-trailer-1'>Watch trailer 2</button>
+             <button class='modal__watchedButton watch-trailer-2'>Watch trailer 3</button>`
+          );
+        } else if (quantityTrailer.length === 2) {
+          watchTrailers.insertAdjacentHTML(
+            'afterbegin',
+            `<button class='modal__watchedButton watch-trailer-0'>Watch trailer 1</button>
+             <button class='modal__watchedButton watch-trailer-1'>Watch trailer 2</button>`
+          );
+        } else if (quantityTrailer.length === 1) {
+          watchTrailers.insertAdjacentHTML(
+            'afterbegin',
+            `<button class='modal__watchedButton watch-trailer-0'>Watch trailer 1</button>`
+          );
+        }
+      }
+      // ====================================
       openModalWindow();
 
       function openModalWindow() {
@@ -146,7 +176,6 @@ function handleCardClick(evt) {
         getDataApi(URL_TRL).then(response => showKey(response.results));
       }
       findTrailer();
-
       function showKey(response) {
         if (evt.target.classList.contains('watch-trailer-0')) {
           onYouTubeIframeAPIReady(response[0].key);
