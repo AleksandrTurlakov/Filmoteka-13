@@ -132,7 +132,7 @@
   &__buttons {
     display: flex;
     gap: 10px;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
   &__watchedButton,
   &__queueButton,
